@@ -1,0 +1,55 @@
+- 原则：
+	- evergreen
+	- 全文搜索
+	- 保留上下文信息
+	- 可回顾
+	- 最短路径
+- 思考：第一次看到的时候，能否意识到其重要性？从而有效归类？
+	- 过滤器需要设置几层？
+- 输入
+	- 文字
+		- 书籍
+			- 电子书
+				- PDF
+				- epub
+				- kindle
+				- 微信读书
+			- 纸质书
+		- 文章
+			- newsletter
+			- 公众号
+			- 知乎文章
+			- 其他web
+		- 碎片信息
+			- Twitter
+			- 微博
+			- 即刻
+	- 音频
+		- 播客
+			- 小宇宙
+			- snipd
+			- Spotify(独占)
+	- 视频
+		- 长视频
+			- Netflix
+			- infuse/emby
+		- 短视频
+			- YouTube
+			- bilibili
+	-
+- 整理
+- 归档
+	- obsidian
+- 重复记忆
+	- 主动记忆
+		- readwise
+		- marginnote
+		- obsidian
+		- logseq
+		- neuracache
+		- anki
+	- 被动记忆（随机回顾）
+		- cubox
+		- readwise
+		- flomo
+-

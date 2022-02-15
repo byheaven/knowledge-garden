@@ -1,0 +1,503 @@
+[{:block/name "../assets/token_economy.pdf",
+  :block/created-at 1644925057195,
+  :block/updated-at 1644925057195}
+ {:block/name
+  "../assets/why_and_how_zk-snark_works-_definitive_explanation_1641805328001_0.pdf",
+  :block/created-at 1644925057194,
+  :block/updated-at 1644925057194}
+ {:block/name "../assets/精通以太坊.pdf",
+  :block/created-at 1644925057194,
+  :block/updated-at 1644925057194}
+ {:block/name "2021-03-16 tuesday",
+  :block/created-at 1615852800000,
+  :block/updated-at 1615852800000}
+ {:block/name "2021-03-24 wednesday",
+  :block/created-at 1616544000000,
+  :block/updated-at 1616544000000}
+ {:block/name "2021-03-27 saturday",
+  :block/created-at 1616803200000,
+  :block/updated-at 1616803200000}
+ {:block/name "2021-04-01 thursday",
+  :block/created-at 1617235200000,
+  :block/updated-at 1617235200000}
+ {:block/name "2021-04-16 friday",
+  :block/created-at 1618531200000,
+  :block/updated-at 1618531200000}
+ {:block/name "2021-05-30 sunday",
+  :block/created-at 1622332800000,
+  :block/updated-at 1622332800000}
+ {:block/name "2021-07-21 wednesday",
+  :block/created-at 1626825600000,
+  :block/updated-at 1626825600000}
+ {:block/name "2021-07-24 saturday",
+  :block/created-at 1627084800000,
+  :block/updated-at 1627084800000}
+ {:block/name "2021-07-26 monday",
+  :block/created-at 1627257600000,
+  :block/updated-at 1627257600000}
+ {:block/name "2021-08-06 friday",
+  :block/created-at 1628208000000,
+  :block/updated-at 1628208000000}
+ {:block/name "2021-08-24 tuesday",
+  :block/created-at 1629763200000,
+  :block/updated-at 1629763200000}
+ {:block/name "2021-09-06 monday",
+  :block/created-at 1630886400000,
+  :block/updated-at 1630886400000}
+ {:block/name "2021-09-09 thursday",
+  :block/created-at 1631145600000,
+  :block/updated-at 1631145600000}
+ {:block/name "2021-09-18 saturday",
+  :block/created-at 1631923200000,
+  :block/updated-at 1631923200000}
+ {:block/name "2021-09-19 sunday",
+  :block/created-at 1632009600000,
+  :block/updated-at 1632009600000}
+ {:block/name "2021-09-25 saturday",
+  :block/created-at 1632528000000,
+  :block/updated-at 1632528000000}
+ {:block/name "2021-09-27 monday",
+  :block/created-at 1632700800000,
+  :block/updated-at 1632700800000}
+ {:block/name "2021-10-13 wednesday",
+  :block/created-at 1634083200000,
+  :block/updated-at 1634083200000}
+ {:block/name "2021-10-14 thursday",
+  :block/created-at 1634169600000,
+  :block/updated-at 1634169600000}
+ {:block/name "2021-10-23 saturday",
+  :block/created-at 1634947200000,
+  :block/updated-at 1634947200000}
+ {:block/name "2021-11-04 thursday",
+  :block/created-at 1635984000000,
+  :block/updated-at 1635984000000}
+ {:block/name "2021-12-10 friday",
+  :block/created-at 1639094400000,
+  :block/updated-at 1639094400000}
+ {:block/name "2021-12-15 wednesday",
+  :block/created-at 1639526400000,
+  :block/updated-at 1639526400000}
+ {:block/name "2021-12-17 friday",
+  :block/created-at 1639699200000,
+  :block/updated-at 1639699200000}
+ {:block/name "2021-12-22 wednesday",
+  :block/created-at 1640131200000,
+  :block/updated-at 1640131200000}
+ {:block/name "2021-12-24 friday",
+  :block/created-at 1640304000000,
+  :block/updated-at 1640304000000}
+ {:block/name "2021-12-26 sunday",
+  :block/created-at 1640476800000,
+  :block/updated-at 1640476800000}
+ {:block/name "2022 system",
+  :block/created-at 1644925057195,
+  :block/updated-at 1644925057195}
+ {:block/name "2022-02-15 tuesday",
+  :block/created-at 1644883200000,
+  :block/updated-at 1644883200000}
+ {:block/name "28定律",
+  :block/created-at 1644925057195,
+  :block/updated-at 1644925057195}
+ {:block/name "28法则",
+  :block/created-at 1644925057196,
+  :block/updated-at 1644925057196}
+ {:block/name "30~35岁要做哪些事",
+  :block/created-at 1644925057198,
+  :block/updated-at 1644925057198}
+ {:block/name "[[自我]]和ego",
+  :block/created-at 1644925057194,
+  :block/updated-at 1644925057194}
+ {:block/name "a",
+  :block/created-at 1644924822573,
+  :block/updated-at 1644924822573}
+ {:block/name "active",
+  :block/created-at 1644925057198,
+  :block/updated-at 1644925057198}
+ {:block/name "advanced_queries",
+  :block/created-at 1644925057198,
+  :block/updated-at 1644925057198}
+ {:block/name "advanced_queries/examples",
+  :block/created-at 1644925057195,
+  :block/updated-at 1644925057195}
+ {:block/name "b",
+  :block/created-at 1644924822573,
+  :block/updated-at 1644924822573}
+ {:block/name "bio",
+  :block/created-at 1644925057197,
+  :block/updated-at 1644925057197}
+ {:block/name "biography",
+  :block/created-at 1644925057194,
+  :block/updated-at 1644925057194}
+ {:block/name "blockchain",
+  :block/created-at 1644925057196,
+  :block/updated-at 1644925057196}
+ {:block/name "books",
+  :block/created-at 1644925057193,
+  :block/updated-at 1644925057193}
+ {:block/name "books/token economy",
+  :block/created-at 1644925057195,
+  :block/updated-at 1644925057195}
+ {:block/name "books/精通以太坊",
+  :block/created-at 1644925057194,
+  :block/updated-at 1644925057194}
+ {:block/name "c",
+  :block/created-at 1644924822573,
+  :block/updated-at 1644924822573}
+ {:block/name "card",
+  :block/created-at 1644924822573,
+  :block/updated-at 1644924822573}
+ {:block/name "checklist",
+  :block/created-at 1644925057196,
+  :block/updated-at 1644925057196}
+ {:block/name "compound interest",
+  :block/created-at 1644925057194,
+  :block/updated-at 1644925057194}
+ {:block/name "consensus",
+  :block/created-at 1644925057193,
+  :block/updated-at 1644925057193}
+ {:block/name "contents",
+  :block/created-at 1644924822573,
+  :block/updated-at 1644924822573}
+ {:block/name "dao",
+  :block/created-at 1644925057193,
+  :block/updated-at 1644925057193}
+ {:block/name "datalog",
+  :block/created-at 1644925057196,
+  :block/updated-at 1644925057196}
+ {:block/name "digital garden",
+  :block/created-at 1644925057195,
+  :block/updated-at 1644925057195}
+ {:block/name "doing",
+  :block/created-at 1644924822573,
+  :block/updated-at 1644924822573}
+ {:block/name "done",
+  :block/created-at 1644924822573,
+  :block/updated-at 1644924822573}
+ {:block/name "dozen",
+  :block/created-at 1644925057193,
+  :block/updated-at 1644925057193}
+ {:block/name "ego",
+  :block/created-at 1644925057198,
+  :block/updated-at 1644925057198}
+ {:block/name "evergreennote",
+  :block/created-at 1644925057195,
+  :block/updated-at 1644925057195}
+ {:block/name "favorites",
+  :block/created-at 1644924822573,
+  :block/updated-at 1644924822573}
+ {:block/name "filter",
+  :block/created-at 1644925057198,
+  :block/updated-at 1644925057198}
+ {:block/name "fomo",
+  :block/created-at 1644925057194,
+  :block/updated-at 1644925057194}
+ {:block/name "gpt3",
+  :block/created-at 1644925057195,
+  :block/updated-at 1644925057195}
+ {:block/name "habits",
+  :block/created-at 1644925057198,
+  :block/updated-at 1644925057198}
+ {:block/name
+  "hls__how_can_we_develop_transformative_tools_for_thought_1641284145737_0",
+  :block/created-at 1644925057198,
+  :block/updated-at 1644925057198}
+ {:block/name "hls__token_economy",
+  :block/created-at 1644925057195,
+  :block/updated-at 1644925057195}
+ {:block/name "hls__精通以太坊",
+  :block/created-at 1644925057194,
+  :block/updated-at 1644925057194}
+ {:block/name "home",
+  :block/created-at 1644925057198,
+  :block/updated-at 1644925057198}
+ {:block/name "ide",
+  :block/created-at 1644925057193,
+  :block/updated-at 1644925057193}
+ {:block/name "idea",
+  :block/created-at 1644925057196,
+  :block/updated-at 1644925057196}
+ {:block/name "ideas",
+  :block/created-at 1644925057196,
+  :block/updated-at 1644925057196}
+ {:block/name "in-progress",
+  :block/created-at 1644924822573,
+  :block/updated-at 1644924822573}
+ {:block/name "intermittent journaling",
+  :block/created-at 1644925057198,
+  :block/updated-at 1644925057198}
+ {:block/name "interstitial journaling",
+  :block/created-at 1644925057198,
+  :block/updated-at 1644925057198}
+ {:block/name "journal",
+  :block/created-at 1644925057195,
+  :block/updated-at 1644925057195}
+ {:block/name "journal reviews",
+  :block/created-at 1644925057193,
+  :block/updated-at 1644925057193}
+ {:block/name "journaling",
+  :block/created-at 1644925057195,
+  :block/updated-at 1644925057195}
+ {:block/name "lagrange point",
+  :block/created-at 1644925057194,
+  :block/updated-at 1644925057194}
+ {:block/name "later",
+  :block/created-at 1644924822573,
+  :block/updated-at 1644924822573}
+ {:block/name "life growth",
+  :block/created-at 1644925057193,
+  :block/updated-at 1644925057193}
+ {:block/name "logseq",
+  :block/created-at 1644925057195,
+  :block/updated-at 1644925057195}
+ {:block/name "logseq/discord",
+  :block/created-at 1644925057195,
+  :block/updated-at 1644925057195}
+ {:block/name "manage",
+  :block/created-at 1644925057195,
+  :block/updated-at 1644925057195}
+ {:block/name "management",
+  :block/created-at 1644925057195,
+  :block/updated-at 1644925057195}
+ {:block/name "metaverse",
+  :block/created-at 1644925057198,
+  :block/updated-at 1644925057198}
+ {:block/name "movies",
+  :block/created-at 1644925057195,
+  :block/updated-at 1644925057195}
+ {:block/name "nft",
+  :block/created-at 1644925057196,
+  :block/updated-at 1644925057196}
+ {:block/name "nlp",
+  :block/created-at 1644925057196,
+  :block/updated-at 1644925057196}
+ {:block/name "notes",
+  :block/created-at 1644925057193,
+  :block/updated-at 1644925057193}
+ {:block/name "notes taking",
+  :block/created-at 1644925057198,
+  :block/updated-at 1644925057198}
+ {:block/name "now",
+  :block/created-at 1644924822573,
+  :block/updated-at 1644924822573}
+ {:block/name "oldspaper",
+  :block/created-at 1644925057195,
+  :block/updated-at 1644925057195}
+ {:block/name "psychology",
+  :block/created-at 1644925057193,
+  :block/updated-at 1644925057193}
+ {:block/name "publish",
+  :block/created-at 1644925057193,
+  :block/updated-at 1644925057193}
+ {:block/name "query",
+  :block/created-at 1644925057194,
+  :block/updated-at 1644925057194}
+ {:block/name "razor",
+  :block/created-at 1644925057196,
+  :block/updated-at 1644925057196}
+ {:block/name "readme",
+  :block/created-at 1644924822573,
+  :block/updated-at 1644924822573}
+ {:block/name "sharding",
+  :block/created-at 1644925057196,
+  :block/updated-at 1644925057196}
+ {:block/name "solidity",
+  :block/created-at 1644925057198,
+  :block/updated-at 1644925057198}
+ {:block/name "tesla",
+  :block/created-at 1644925057195,
+  :block/updated-at 1644925057195}
+ {:block/name "time blocking",
+  :block/created-at 1644925057195,
+  :block/updated-at 1644925057195}
+ {:block/name "time box",
+  :block/created-at 1644925057194,
+  :block/updated-at 1644925057194}
+ {:block/name "time management",
+  :block/created-at 1644925057192,
+  :block/updated-at 1644925057192}
+ {:block/name "timeblock",
+  :block/created-at 1644925057195,
+  :block/updated-at 1644925057195}
+ {:block/name "todo",
+  :block/created-at 1644924822573,
+  :block/updated-at 1644924822573}
+ {:block/name "tool_for_thoughts",
+  :block/created-at 1644925057193,
+  :block/updated-at 1644925057193}
+ {:block/name "trust",
+  :block/created-at 1644925057198,
+  :block/updated-at 1644925057198}
+ {:block/name "ufo",
+  :block/created-at 1644925057195,
+  :block/updated-at 1644925057195}
+ {:block/name "victim mentality",
+  :block/created-at 1644925057194,
+  :block/updated-at 1644925057194}
+ {:block/name "wait",
+  :block/created-at 1644924822573,
+  :block/updated-at 1644924822573}
+ {:block/name "waiting",
+  :block/created-at 1644924822573,
+  :block/updated-at 1644924822573}
+ {:block/name "web3",
+  :block/created-at 1644925057198,
+  :block/updated-at 1644925057198}
+ {:block/name "workflow",
+  :block/created-at 1644925057197,
+  :block/updated-at 1644925057197}
+ {:block/name "zero-knowledge proof",
+  :block/created-at 1644925057192,
+  :block/updated-at 1644925057192}
+ {:block/name "zero-knowledge protocol",
+  :block/created-at 1644925057196,
+  :block/updated-at 1644925057196}
+ {:block/name "zkp",
+  :block/created-at 1644925057193,
+  :block/updated-at 1644925057193}
+ {:block/name "三维决策介绍(结合具体案例)",
+  :block/created-at 1644925057193,
+  :block/updated-at 1644925057193}
+ {:block/name "中心线",
+  :block/created-at 1644925057197,
+  :block/updated-at 1644925057197}
+ {:block/name "习惯",
+  :block/created-at 1644925057194,
+  :block/updated-at 1644925057194}
+ {:block/name "习近平",
+  :block/created-at 1644925057194,
+  :block/updated-at 1644925057194}
+ {:block/name "二八法则",
+  :block/created-at 1644925057195,
+  :block/updated-at 1644925057195}
+ {:block/name "交互图",
+  :block/created-at 1644925057193,
+  :block/updated-at 1644925057193}
+ {:block/name "信任",
+  :block/created-at 1644925057194,
+  :block/updated-at 1644925057194}
+ {:block/name "元宇宙",
+  :block/created-at 1644925057193,
+  :block/updated-at 1644925057193}
+ {:block/name "共识",
+  :block/created-at 1644925057196,
+  :block/updated-at 1644925057196}
+ {:block/name "分片",
+  :block/created-at 1644925057195,
+  :block/updated-at 1644925057195}
+ {:block/name "刷机脑图",
+  :block/created-at 1644925057198,
+  :block/updated-at 1644925057198}
+ {:block/name "区块链",
+  :block/created-at 1644925057198,
+  :block/updated-at 1644925057198}
+ {:block/name "受害者心态",
+  :block/created-at 1644925057194,
+  :block/updated-at 1644925057194}
+ {:block/name "受害者心理",
+  :block/created-at 1644925057195,
+  :block/updated-at 1644925057195}
+ {:block/name "复利",
+  :block/created-at 1644925057195,
+  :block/updated-at 1644925057195}
+ {:block/name "对偶图",
+  :block/created-at 1644925057193,
+  :block/updated-at 1644925057193}
+ {:block/name "心理学",
+  :block/created-at 1644925057193,
+  :block/updated-at 1644925057193}
+ {:block/name "心理学/剃刀",
+  :block/created-at 1644925057195,
+  :block/updated-at 1644925057195}
+ {:block/name "心理学/认知偏误",
+  :block/created-at 1644925057196,
+  :block/updated-at 1644925057196}
+ {:block/name "思考工具",
+  :block/created-at 1644925057197,
+  :block/updated-at 1644925057197}
+ {:block/name "拉格朗日点",
+  :block/created-at 1644925057195,
+  :block/updated-at 1644925057195}
+ {:block/name "招聘",
+  :block/created-at 1644925057196,
+  :block/updated-at 1644925057196}
+ {:block/name "数字花园",
+  :block/created-at 1644925057194,
+  :block/updated-at 1644925057194}
+ {:block/name "新念旧闻",
+  :block/created-at 1644925057196,
+  :block/updated-at 1644925057196}
+ {:block/name "时间块",
+  :block/created-at 1644925057196,
+  :block/updated-at 1644925057196}
+ {:block/name "时间成本",
+  :block/created-at 1644925057198,
+  :block/updated-at 1644925057198}
+ {:block/name "时间管理",
+  :block/created-at 1644925057193,
+  :block/updated-at 1644925057193}
+ {:block/name "最优交互序列",
+  :block/created-at 1644925057192,
+  :block/updated-at 1644925057192}
+ {:block/name "林迪效应",
+  :block/created-at 1644925057195,
+  :block/updated-at 1644925057195}
+ {:block/name "检查清单",
+  :block/created-at 1644925057195,
+  :block/updated-at 1644925057195}
+ {:block/name "比特币",
+  :block/created-at 1644925057193,
+  :block/updated-at 1644925057193}
+ {:block/name "清单",
+  :block/created-at 1644925057196,
+  :block/updated-at 1644925057196}
+ {:block/name "特斯拉",
+  :block/created-at 1644925057194,
+  :block/updated-at 1644925057194}
+ {:block/name "笔记",
+  :block/created-at 1644925057198,
+  :block/updated-at 1644925057198}
+ {:block/name "管理",
+  :block/created-at 1644925057196,
+  :block/updated-at 1644925057196}
+ {:block/name "管理/招聘",
+  :block/created-at 1644925057196,
+  :block/updated-at 1644925057196}
+ {:block/name "精力管理",
+  :block/created-at 1644925057193,
+  :block/updated-at 1644925057193}
+ {:block/name "终身成长",
+  :block/created-at 1644925057197,
+  :block/updated-at 1644925057197}
+ {:block/name "自我",
+  :block/created-at 1644925057195,
+  :block/updated-at 1644925057195}
+ {:block/name "自我介绍",
+  :block/created-at 1644925057198,
+  :block/updated-at 1644925057198}
+ {:block/name "自我简介",
+  :block/created-at 1644925057197,
+  :block/updated-at 1644925057197}
+ {:block/name "英语口语",
+  :block/created-at 1644925057196,
+  :block/updated-at 1644925057196}
+ {:block/name "蔚来",
+  :block/created-at 1644925057198,
+  :block/updated-at 1644925057198}
+ {:block/name "记录",
+  :block/created-at 1644925057195,
+  :block/updated-at 1644925057195}
+ {:block/name "边界",
+  :block/created-at 1644925057196,
+  :block/updated-at 1644925057196}
+ {:block/name "过滤器",
+  :block/created-at 1644925057196,
+  :block/updated-at 1644925057196}
+ {:block/name "间歇日记",
+  :block/created-at 1644925057193,
+  :block/updated-at 1644925057193}
+ {:block/name "零知识证明",
+  :block/created-at 1644925057193,
+  :block/updated-at 1644925057193}
+ {:block/name "非同质化代币",
+  :block/created-at 1644925057195, 
+  :block/updated-at 1644925057195}]
