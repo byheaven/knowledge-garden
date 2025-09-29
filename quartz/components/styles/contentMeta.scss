@@ -11,4 +11,22 @@
       }
     }
   }
+
+  .edit-btn {
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    transition: color 0.2s ease, opacity 0.2s ease;
+
+    &:hover {
+      opacity: 0.8;
+    }
+
+    svg {
+      flex-shrink: 0;
+      width: 16px;
+      height: 16px;
+    }
+  }
 }

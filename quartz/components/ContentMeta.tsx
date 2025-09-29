@@ -47,7 +47,7 @@ export default ((opts?: Partial<ContentMetaOptions>) => {
           {segments} <br />
           <span id="edit-btn-container">
             <a
-              href={`https://github.com/byheaven/knowledge-garden/edit/main/${fileData.filePath}`}
+              href={`https://github.com/byheaven/knowledge-garden/edit/v4/${fileData.filePath}`}
               class={classNames(displayClass, "external", "edit-btn")}
               target={"_blank"}
             >
@@ -70,7 +70,7 @@ export default ((opts?: Partial<ContentMetaOptions>) => {
             </a>{" "}
             &nbsp;
             <a
-              href={`https://github.com/byheaven/knowledge-garden/blame/main/${fileData.filePath}`}
+              href={`https://github.com/byheaven/knowledge-garden/blame/v4/${fileData.filePath}`}
               class={classNames(displayClass, "external", "edit-btn")}
               target={"_blank"}
             >
