@@ -50,7 +50,7 @@ export default (() => {
             )}
           </>
         )}
-        {cfg.theme.fontOrigin === "local" && (
+        {cfg.theme.fontOrigin === "googleFonts" && (
           <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cn-fontsource-lxgw-wen-kai-gb-screen@1.0.6/font.min.css" />
         )}
         <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossOrigin="anonymous" />
