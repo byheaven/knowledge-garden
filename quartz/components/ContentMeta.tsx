@@ -42,9 +42,16 @@ export default ((opts?: Partial<ContentMetaOptions>) => {
         segments.push(<span>{displayedTime}</span>)
       }
 
+      const segmentsWithCommas = segments.map((segment, index) => (
+        <span key={index}>
+          {segment}
+          {options.showComma && index < segments.length - 1 ? ", " : ""}
+        </span>
+      ))
+
       return (
-        <p show-comma={options.showComma} class={classNames(displayClass, "content-meta")}>
-          {segments} <br />
+        <p show-comma="false" class={classNames(displayClass, "content-meta")}>
+          {segmentsWithCommas} <br />
           <span id="edit-btn-container">
             <a
               href={`https://github.com/byheaven/knowledge-garden/edit/v4/${fileData.filePath}`}
