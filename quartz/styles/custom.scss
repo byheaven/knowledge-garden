@@ -1,3 +1,38 @@
 @use "./base.scss";
+@use "./themes";
 
 // put your custom CSS here!
+
+// Override tokyo-night theme cursor settings to ensure proper pointer behavior
+.explorer .explorer-content ul.explorer-ul li a {
+  cursor: pointer !important;
+}
+
+.explorer .explorer-content .folder-container a {
+  cursor: pointer !important;
+}
+
+// Ensure edit buttons always show pointer cursor and override opacity inheritance
+.content-meta .edit-btn {
+  cursor: pointer !important;
+}
+
+// Override opacity inheritance and theme effects for edit buttons
+.content-meta #edit-btn-container,
+.content-meta span#edit-btn-container {
+  opacity: 1 !important;
+  font-size: 1rem !important;
+
+  a.edit-btn,
+  a.external.edit-btn {
+    opacity: 1 !important;
+    color: var(--darkgray) !important;
+    font-size: 1rem !important;
+    transition: color 0.2s ease, opacity 0.2s ease !important;
+
+    &:hover {
+      opacity: 0.8 !important;
+      color: var(--dark) !important;
+    }
+  }
+}
