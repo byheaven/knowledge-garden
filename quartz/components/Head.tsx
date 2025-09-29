@@ -51,7 +51,10 @@ export default (() => {
           </>
         )}
         {cfg.theme.fontOrigin === "googleFonts" && (
-          <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cn-fontsource-lxgw-wen-kai-gb-screen@1.0.6/font.min.css" />
+          <>
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cn-fontsource-lxgw-wen-kai-gb-screen@1.0.6/font.min.css" />
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/fira-code@5.2.0/index.min.css" />
+          </>
         )}
         <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossOrigin="anonymous" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />

@@ -1,9 +1,14 @@
 @use "./base.scss";
+@use "./themes";
 
 // put your custom CSS here!
 
-// Override fonts to use LXGW WenKai GB Screen as primary font
-body {
+// Override fonts to use LXGW WenKai GB Screen as primary font - Target specific selectors
+body,
+div#quartz-root.page,
+div#quartz-root.page body,
+.explorer,
+.explorer *:not(code):not(pre):not(kbd):not(samp) {
   font-family: "LXGW WenKai GB Screen", "Noto Sans SC", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif !important;
   font-size: 1.08rem;
   line-height: 1.7;
@@ -11,4 +16,33 @@ body {
 
 h1, h2, h3, h4, h5, h6 {
   font-family: "LXGW WenKai GB Screen", "Noto Sans SC", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif !important;
+}
+
+// Use Fira Code for all code-related elements - Ultra strong overrides
+* code, * pre, * kbd, * samp,
+html code, html pre, html kbd, html samp,
+body code, body pre, body kbd, body samp,
+:root code, :root pre, :root kbd, :root samp,
+:root body code, :root body pre, :root body kbd, :root body samp,
+.highlight code, .highlight pre,
+pre > code, pre:has(> code),
+:root pre > code, :root pre:has(> code),
+article code, article pre,
+.popover-hint code, .popover-hint pre,
+div code, div pre, p code, p pre,
+code[data-theme*=" "], pre code[data-theme*=" "] {
+  font-family: "Fira Code", "JetBrains Mono", "Monaco", "Menlo", "Consolas", monospace !important;
+}
+
+// Cursor pointer for interactive elements
+.edit-btn,
+.explorer button,
+.explorer summary,
+.explorer .folder-outer > .folder-title,
+.explorer .file-list li,
+.explorer-ul li,
+.explorer-ul li a,
+.explorer .folder-button,
+.explorer .folder-title {
+  cursor: pointer !important;
 }
