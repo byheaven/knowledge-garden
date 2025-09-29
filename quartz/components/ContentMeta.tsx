@@ -77,7 +77,7 @@ export default ((opts?: Partial<ContentMetaOptions>) => {
             </a>{" "}
             &nbsp;
             <a
-              href={`https://github.com/byheaven/knowledge-garden/blame/v4/${fileData.filePath}`}
+              href={`https://github.githistory.xyz/byheaven/knowledge-garden/blob/v4/${fileData.filePath}`}
               class={classNames(displayClass, "external", "edit-btn")}
               target={"_blank"}
             >
