@@ -6,6 +6,7 @@ export const sharedPageComponents: SharedLayout = {
   head: Component.Head(),
   header: [],
   afterBody: [
+    Component.MobileOnly(Component.Backlinks()),
     Component.ConditionalRender({
       component: Component.Comments({
         provider: "waline",
@@ -60,7 +61,7 @@ export const defaultContentPageLayout: PageLayout = {
   right: [
     // Component.Graph(),
     Component.DesktopOnly(Component.TableOfContents()),
-    Component.Backlinks(),
+    Component.DesktopOnly(Component.Backlinks()),
   ],
 }
 

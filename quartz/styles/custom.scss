@@ -263,6 +263,16 @@ a.edit-btn {
   margin-top: 4rem !important;
 }
 
+// Mobile: Add divider line above Backlinks
+@media #{$mobile} {
+  .mobile-only.backlinks {
+    border-top: 1px solid var(--lightgray) !important;
+    padding-top: 2rem !important;
+    margin-top: 3rem !important;
+    margin-bottom: 2rem !important;
+  }
+}
+
 // Reduce font size for footer and comment system credits
 footer,
 footer *,
