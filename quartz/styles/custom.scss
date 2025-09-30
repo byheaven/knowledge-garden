@@ -257,14 +257,17 @@ a.edit-btn {
   min-height: 100vh !important;
 }
 
-// Add spacing before comment section with decorative double-line divider
+// Add spacing before comment section
 .giscus,
 .waline {
   margin-top: 4rem !important;
-  border-top: 1px solid var(--lightgray) !important;
-  border-bottom: 1px solid var(--light) !important;
   padding-top: 0.5rem !important;
   padding-bottom: 4rem !important;
+
+  // Desktop: show divider after comments (hr before comments already exists)
+  @media all and not ($mobile) {
+    border-bottom: 1px solid var(--light) !important;
+  }
 }
 
 // Mobile: Add dotted divider line above Backlinks (only shows if backlinks exist)
@@ -275,14 +278,28 @@ a.edit-btn {
     margin-top: 3rem !important;
     margin-bottom: 2rem !important;
   }
+
+  // Only show comment top divider when backlinks exist
+  .mobile-only.backlinks ~ .giscus,
+  .mobile-only.backlinks ~ .waline {
+    border-top: 1px solid var(--lightgray) !important;
+  }
+
+  // Always show comment bottom divider on mobile
+  .giscus,
+  .waline {
+    border-bottom: 1px solid var(--light) !important;
+  }
 }
 
 // Reduce font size for footer and comment system credits
 footer,
 footer *,
-.wl-power,
-.wl-power *,
-.waline .wl-power,
 .giscus-frame {
   font-size: 0.75rem !important;
+}
+
+// Hide Waline powered by text
+.wl-power {
+  display: none !important;
 }
