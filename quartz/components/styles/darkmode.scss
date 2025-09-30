@@ -20,12 +20,6 @@
     stroke: var(--darkgray);
     stroke-width: 0.5px;
   }
-
-  &:hover svg {
-    fill: var(--secondary);
-    stroke: var(--secondary);
-    transform: scale(1.1);
-  }
 }
 
 :root[saved-theme="dark"] {
@@ -52,4 +46,11 @@
   & > .nightIcon {
     display: none;
   }
+}
+
+// Hover effect must come after to maintain higher specificity
+.darkmode:hover svg {
+  fill: var(--secondary) !important;
+  stroke: var(--secondary) !important;
+  transform: scale(1.1);
 }
