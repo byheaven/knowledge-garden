@@ -15,12 +15,12 @@
     width: 20px;
     height: 20px;
     top: calc(50% - 10px);
-    stroke: var(--darkgray);
-    fill: none;
-    transition: opacity 0.1s ease;
+    fill: var(--darkgray);
+    transition: all 0.2s ease;
   }
 
   &:hover svg {
-    stroke: var(--secondary);
+    fill: var(--secondary);
+    transform: scale(1.1);
   }
 }
