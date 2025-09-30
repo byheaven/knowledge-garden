@@ -6,14 +6,21 @@ export const sharedPageComponents: SharedLayout = {
   head: Component.Head(),
   header: [],
   afterBody: [
-    Component.Comments({
-      provider: "waline",
-      options: {
-        serverURL: "https://discuss.byheaven.net",
-        lang: "en",
-        dark: "auto",
-        login: "enable",
-        emoji: ["https://unpkg.com/@waline/emojis@1.2.0/tw-emoji"],
+    Component.ConditionalRender({
+      component: Component.Comments({
+        provider: "waline",
+        options: {
+          serverURL: "https://discuss.byheaven.net",
+          lang: "en",
+          dark: "auto",
+          login: "enable",
+          emoji: ["https://unpkg.com/@waline/emojis@1.2.0/tw-emoji"],
+        },
+      }),
+      condition: (page) => {
+        // Show comments on all content pages except folder index pages
+        const slug = page.fileData.slug || ""
+        return !slug.endsWith("/index") && page.fileData.filePath?.endsWith(".md")
       },
     }),
   ],

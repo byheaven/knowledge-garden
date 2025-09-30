@@ -193,7 +193,8 @@ a.edit-btn {
 }
 
 // Ensure article content area has minimum height to push comments down
-article {
+// Only apply to content pages, not list pages
+.center:not(:has(.page-listing)) article {
   min-height: 100vh !important;
 }
 
