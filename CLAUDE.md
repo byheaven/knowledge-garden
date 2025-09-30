@@ -83,6 +83,14 @@ Quartz uses a plugin-based architecture with three types:
 
 **Before Making Code Changes**: Always consult the documentation in the `docs/` directory before making any code changes. This ensures you understand the existing architecture, patterns, and conventions specific to Quartz v4.
 
+### Layout Verification Policy
+
+**After CSS/Layout Changes**: Always verify layout changes using Chrome DevTools MCP by programmatically inspecting element properties via `evaluate_script`. DO NOT use screenshots for layout verification. Instead:
+1. Use `mcp__chrome-devtools__evaluate_script` to inspect element positions, dimensions, and computed styles
+2. Verify alignment, spacing, and layout properties programmatically
+3. Check `getBoundingClientRect()` for position and size
+4. Check `getComputedStyle()` for CSS properties like margins, padding, position, etc.
+
 ### Code Style
 
 - Uses Prettier with 100 character line width

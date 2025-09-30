@@ -211,7 +211,6 @@ a {
     }
 
     & .sidebar {
-      gap: 1.2rem;
       top: 0;
       box-sizing: border-box;
       padding: $topSpacing 2rem 2rem 2rem;
@@ -224,6 +223,7 @@ a {
       z-index: 1;
       grid-area: grid-sidebar-left;
       flex-direction: column;
+      gap: 0 !important;
       @media all and ($mobile) {
         gap: 0;
         align-items: center;
@@ -234,6 +234,10 @@ a {
         padding: 0;
         padding-top: 2rem;
       }
+    }
+
+    & .sidebar.right {
+      gap: 1.2rem;
     }
 
     & .sidebar.right {

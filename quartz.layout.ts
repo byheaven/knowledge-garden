@@ -24,12 +24,7 @@ export const sharedPageComponents: SharedLayout = {
       },
     }),
   ],
-  footer: Component.Footer({
-    links: {
-      GitHub: "https://github.com/byheaven",
-      X: "https://x.com/byheaven0912",
-    },
-  }),
+  footer: Component.Footer(),
 }
 
 // components for pages that display a single page (e.g. a single note)
@@ -45,6 +40,13 @@ export const defaultContentPageLayout: PageLayout = {
   ],
   left: [
     Component.PageTitle(),
+    Component.Socials({
+      links: {
+        GitHub: "https://github.com/byheaven",
+        X: "https://x.com/byheaven0912",
+        RSS: "https://byheaven.net/index.xml",
+      },
+    }),
     Component.MobileOnly(Component.Spacer()),
     Component.Flex({
       components: [
@@ -67,6 +69,13 @@ export const defaultListPageLayout: PageLayout = {
   beforeBody: [Component.Breadcrumbs(), Component.ArticleTitle(), Component.ContentMeta()],
   left: [
     Component.PageTitle(),
+    Component.Socials({
+      links: {
+        GitHub: "https://github.com/byheaven",
+        X: "https://x.com/byheaven0912",
+        RSS: "https://byheaven.net/index.xml",
+      },
+    }),
     Component.MobileOnly(Component.Spacer()),
     Component.Flex({
       components: [

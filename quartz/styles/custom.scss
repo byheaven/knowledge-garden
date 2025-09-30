@@ -5,6 +5,7 @@
 $page-title-font-size: 2.5rem;
 $page-title-line-height: 1.2;
 $sidebar-gap-desktop: 1.2rem;
+$page-title-margin-top: -3.5rem;
 
 // put your custom CSS here!
 
@@ -105,37 +106,33 @@ pre code[data-theme*=" "] {
   cursor: pointer !important;
 }
 
+// Fix flex-component (3 icons) to top-right corner on all devices
+.page > #quartz-body .sidebar.left > .flex-component {
+  position: fixed !important;
+  right: 2rem !important;
+  top: 2rem !important;
+  display: flex !important;
+  justify-content: flex-end !important;
+  pointer-events: none !important;
+  z-index: 100 !important;
+
+  > * {
+    pointer-events: auto !important;
+  }
+}
+
 // Position icons next to Explorer button (desktop only)
 @media all and not ($mobile) {
-  .sidebar.left {
+  .page > #quartz-body .sidebar.left {
     display: flex !important;
     flex-direction: column !important;
+    gap: 0 !important;
 
-    & > .flex-component {
-      position: absolute !important;
-      right: 0 !important;
-      top: $topSpacing + ($page-title-font-size * $page-title-line-height) + $sidebar-gap-desktop;
-      display: flex !important;
-      justify-content: flex-end !important;
-      pointer-events: none !important;
-      z-index: 100 !important;
-
-      & > * {
-        pointer-events: auto !important;
-      }
-    }
-
-    & > .explorer {
+    > .explorer {
       position: relative !important;
       z-index: 5 !important;
 
-      & > button {
-        padding-right: 8rem !important;
-        z-index: 15 !important;
-        position: relative !important;
-      }
-
-      & > .explorer-content {
+      > .explorer-content {
         z-index: 1 !important;
         position: relative !important;
       }
@@ -170,16 +167,70 @@ pre code[data-theme*=" "] {
   }
 }
 
-// Increase PageTitle (BYHEAVEN) font size
+// Increase PageTitle (BYHEAVEN) font size and move up
 .page-title {
   font-size: $page-title-font-size !important;
   line-height: $page-title-line-height;
   font-weight: 600 !important;
+  margin-top: $page-title-margin-top !important;
+  margin-bottom: 0 !important;
 }
 
 .page-title > a {
   font-size: inherit !important;
   line-height: inherit;
+}
+
+// Mobile: Reset PageTitle margin to prevent going off screen
+@media #{$mobile} {
+  // Create two-row layout: Row 1 (Explorer left + PageTitle right), Row 2 (Socials)
+  .page > #quartz-body .sidebar.left {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: wrap !important;
+    align-items: center !important;
+  }
+
+  // Row 1: Explorer on the left
+  .page > #quartz-body .sidebar.left > .explorer {
+    order: 1 !important;
+    width: auto !important;
+    flex-shrink: 0 !important;
+    margin-right: 1rem !important;
+  }
+
+  // Row 1: PageTitle on the right (takes remaining space)
+  .page > #quartz-body .sidebar.left > .page-title {
+    order: 2 !important;
+    flex: 1 !important;
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+  }
+
+  // Row 2: Socials on its own line, aligned with PageTitle
+  .page > #quartz-body .sidebar.left > .socials {
+    order: 3 !important;
+    width: 100% !important;
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+    margin-left: calc(34px + 1rem) !important; // Explorer width + margin-right
+  }
+
+  // Hide mobile spacer
+  .page > #quartz-body .sidebar.left > .spacer {
+    display: none !important;
+  }
+}
+
+// Add spacing after mobile spacer and before Explorer
+@media all and not ($mobile) {
+  .page > #quartz-body .sidebar.left > .spacer {
+    margin-bottom: $sidebar-gap-desktop !important;
+  }
+
+  .page > #quartz-body .sidebar.left > .explorer {
+    margin-top: $sidebar-gap-desktop !important;
+  }
 }
 
 // Adjust Edit page and View history links
