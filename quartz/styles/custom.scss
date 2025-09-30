@@ -1,5 +1,10 @@
 @use "./base.scss";
 @use "./themes";
+@use "./variables.scss" as *;
+
+$page-title-font-size: 2.5rem;
+$page-title-line-height: 1.2;
+$sidebar-gap-desktop: 1.2rem;
 
 // put your custom CSS here!
 
@@ -27,23 +32,52 @@ body ol,
   line-height: 1.7;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: "LXGW WenKai GB Screen", "Noto Sans SC", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif !important;
 }
 
 // Use Fira Code for all code-related elements - Ultra strong overrides
-* code, * pre, * kbd, * samp,
-html code, html pre, html kbd, html samp,
-body code, body pre, body kbd, body samp,
-:root code, :root pre, :root kbd, :root samp,
-:root body code, :root body pre, :root body kbd, :root body samp,
-.highlight code, .highlight pre,
-pre > code, pre:has(> code),
-:root pre > code, :root pre:has(> code),
-article code, article pre,
-.popover-hint code, .popover-hint pre,
-div code, div pre, p code, p pre,
-code[data-theme*=" "], pre code[data-theme*=" "] {
+* code,
+* pre,
+* kbd,
+* samp,
+html code,
+html pre,
+html kbd,
+html samp,
+body code,
+body pre,
+body kbd,
+body samp,
+:root code,
+:root pre,
+:root kbd,
+:root samp,
+:root body code,
+:root body pre,
+:root body kbd,
+:root body samp,
+.highlight code,
+.highlight pre,
+pre > code,
+pre:has(> code),
+:root pre > code,
+:root pre:has(> code),
+article code,
+article pre,
+.popover-hint code,
+.popover-hint pre,
+div code,
+div pre,
+p code,
+p pre,
+code[data-theme*=" "],
+pre code[data-theme*=" "] {
   font-family: "Fira Code", "JetBrains Mono", "Monaco", "Menlo", "Consolas", monospace !important;
 }
 
@@ -58,4 +92,85 @@ code[data-theme*=" "], pre code[data-theme*=" "] {
 .explorer .folder-button,
 .explorer .folder-title {
   cursor: pointer !important;
+}
+
+// Position icons next to Explorer button (desktop only)
+@media all and not ($mobile) {
+  .sidebar.left {
+    display: flex !important;
+    flex-direction: column !important;
+
+    & > .flex-component {
+      position: absolute !important;
+      right: 0 !important;
+      top: $topSpacing + ($page-title-font-size * $page-title-line-height) + $sidebar-gap-desktop;
+      display: flex !important;
+      justify-content: flex-end !important;
+      pointer-events: none !important;
+      z-index: 10 !important;
+
+      & > * {
+        pointer-events: auto !important;
+      }
+    }
+
+    & > .explorer {
+      position: relative !important;
+      z-index: 5 !important;
+
+      & > button {
+        padding-right: 8rem !important;
+        z-index: 15 !important;
+        position: relative !important;
+      }
+
+      & > .explorer-content {
+        z-index: 1 !important;
+        position: relative !important;
+      }
+    }
+  }
+}
+
+// Align flex container items
+.flex-component {
+  align-items: center !important;
+
+  & > div {
+    height: 24px !important;
+    display: flex !important;
+    align-items: center !important;
+  }
+}
+
+// Remove search button border and padding to align with other icons
+.search > .search-button {
+  border: none !important;
+  border-radius: 0 !important;
+  padding: 0 !important;
+  width: 24px !important;
+  height: 24px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+
+  svg {
+    width: 24px !important;
+    height: 24px !important;
+    min-width: 24px !important;
+    margin: 0 !important;
+    display: block !important;
+  }
+}
+
+// Increase PageTitle (BYHEAVEN) font size
+.page-title {
+  font-size: $page-title-font-size !important;
+  line-height: $page-title-line-height;
+  font-weight: 600 !important;
+}
+
+.page-title > a {
+  font-size: inherit !important;
+  line-height: inherit;
 }

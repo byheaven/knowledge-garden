@@ -79,6 +79,10 @@ Quartz uses a plugin-based architecture with three types:
 
 ## Important Development Notes
 
+### Documentation Review Policy
+
+**Before Making Code Changes**: Always consult the documentation in the `docs/` directory before making any code changes. This ensures you understand the existing architecture, patterns, and conventions specific to Quartz v4.
+
 ### Code Style
 
 - Uses Prettier with 100 character line width

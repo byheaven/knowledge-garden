@@ -27,14 +27,16 @@
 }
 
 .explorer {
+  --explorer-toggle-fallback-height: calc(1em * 1.7);
+  --explorer-toggle-height: var(--explorer-toggle-fallback-height);
   display: flex;
   flex-direction: column;
   overflow-y: hidden;
 
-  min-height: 1.2rem;
+  min-height: var(--explorer-toggle-height);
   flex: 0 1 auto;
   &.collapsed {
-    flex: 0 1 1.2rem;
+    flex: 0 1 var(--explorer-toggle-height);
     & .fold {
       transform: rotateZ(-90deg);
     }
@@ -87,6 +89,12 @@
     & > polyline {
       pointer-events: none;
     }
+  }
+}
+
+@supports (min-height: 1lh) {
+  .explorer {
+    --explorer-toggle-height: max(1lh, var(--explorer-toggle-fallback-height));
   }
 }
 
