@@ -136,8 +136,14 @@ function createFolderNode(
   const folderIsPrefixOfCurrentSlug =
     simpleFolderPath === currentSlug.slice(0, simpleFolderPath.length)
 
-  if (!isCollapsed || folderIsPrefixOfCurrentSlug) {
+  const shouldBeOpen = !isCollapsed || folderIsPrefixOfCurrentSlug
+  if (shouldBeOpen) {
     folderOuter.classList.add("open")
+    // Update state to match DOM - ensures forced-open folders are remembered
+    const folderState = currentExplorerState.find((item) => item.path === folderPath)
+    if (folderState) {
+      folderState.collapsed = false
+    }
   }
 
   for (const child of node.children) {
@@ -205,6 +211,14 @@ async function setupExplorer(currentSlug: FullSlug) {
     const explorerUl = explorer.querySelector(".explorer-ul")
     if (!explorerUl) continue
 
+    // Clear existing content except .overflow-end
+    const existingChildren = Array.from(explorerUl.children)
+    for (const child of existingChildren) {
+      if (!child.classList.contains("overflow-end")) {
+        child.remove()
+      }
+    }
+
     // Create and insert new content
     const fragment = document.createDocumentFragment()
     for (const child of trie.children) {
@@ -256,6 +270,10 @@ async function setupExplorer(currentSlug: FullSlug) {
       window.addCleanup(() => icon.removeEventListener("click", toggleFolder))
     }
   }
+
+  // Save the updated state (including forced-open folders) to localStorage
+  const stringifiedFileTree = JSON.stringify(currentExplorerState)
+  localStorage.setItem("fileTree", stringifiedFileTree)
 }
 
 document.addEventListener("prenav", async () => {
