@@ -257,18 +257,19 @@ a.edit-btn {
   min-height: 100vh !important;
 }
 
-// Add spacing before comment section with divider line
+// Add spacing before comment section with bold divider line and shadow
 .giscus,
 .waline {
   margin-top: 4rem !important;
-  border-top: 1px solid var(--lightgray) !important;
+  border-top: 2px solid var(--secondary) !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) !important;
   padding-top: 4rem !important;
 }
 
-// Mobile: Add divider line above Backlinks
+// Mobile: Add dashed divider line above Backlinks
 @media #{$mobile} {
   .mobile-only.backlinks {
-    border-top: 1px solid var(--lightgray) !important;
+    border-top: 2px dashed var(--lightgray) !important;
     padding-top: 2rem !important;
     margin-top: 3rem !important;
     margin-bottom: 2rem !important;
