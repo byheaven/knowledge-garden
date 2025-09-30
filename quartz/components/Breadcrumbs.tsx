@@ -64,7 +64,11 @@ export default ((opts?: Partial<BreadcrumbOptions>) => {
       return null
     }
 
-    const crumbs: CrumbData[] = pathNodes.map((node, idx) => {
+    // Detect if page is under a language prefix
+    const isLanguagePrefixed = slug.startsWith("cn/") || slug.startsWith("en/")
+    const language = slug.startsWith("cn/") ? "cn" : slug.startsWith("en/") ? "en" : null
+
+    let crumbs: CrumbData[] = pathNodes.map((node, idx) => {
       const crumb = formatCrumb(node.displayName, fileData.slug!, simplifySlug(node.slug))
       if (idx === 0) {
         crumb.displayName = options.rootName
@@ -77,6 +81,17 @@ export default ((opts?: Partial<BreadcrumbOptions>) => {
 
       return crumb
     })
+
+    // For language-prefixed pages, skip the root index crumb and rename the language folder crumb
+    if (isLanguagePrefixed && crumbs.length > 1) {
+      crumbs = crumbs.slice(1) // Remove root index
+      // Rename the first crumb (language folder) appropriately
+      if (language === "cn") {
+        crumbs[0].displayName = "首页"
+      } else if (language === "en") {
+        crumbs[0].displayName = "Home"
+      }
+    }
 
     if (!options.showCurrentPage) {
       crumbs.pop()

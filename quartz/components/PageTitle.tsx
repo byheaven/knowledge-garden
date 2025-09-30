@@ -5,10 +5,24 @@ import { i18n } from "../i18n"
 
 const PageTitle: QuartzComponent = ({ fileData, cfg, displayClass }: QuartzComponentProps) => {
   const title = cfg?.pageTitle ?? i18n(cfg.locale).propertyDefaults.title
-  const baseDir = pathToRoot(fileData.slug!)
+  const slug = fileData.slug || ""
+  const baseDir = pathToRoot(slug)
+
+  // Detect if page is under a language prefix and link directly to language homepage
+  let homeLink: string
+  if (slug.startsWith("cn/") || slug === "cn") {
+    // Use absolute path to avoid relative path issues on language homepage
+    homeLink = "/cn/"
+  } else if (slug.startsWith("en/") || slug === "en") {
+    // Use absolute path to avoid relative path issues on language homepage
+    homeLink = "/en/"
+  } else {
+    homeLink = baseDir
+  }
+
   return (
     <h2 class={classNames(displayClass, "page-title")}>
-      <a href={baseDir}>{title}</a>
+      <a href={homeLink}>{title}</a>
     </h2>
   )
 }
