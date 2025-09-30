@@ -257,10 +257,12 @@ a.edit-btn {
   min-height: 100vh !important;
 }
 
-// Add spacing before comment section
+// Add spacing before comment section with divider line
 .giscus,
 .waline {
   margin-top: 4rem !important;
+  border-top: 1px solid var(--lightgray) !important;
+  padding-top: 4rem !important;
 }
 
 // Mobile: Add divider line above Backlinks
