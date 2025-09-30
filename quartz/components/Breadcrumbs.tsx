@@ -58,6 +58,12 @@ export default ((opts?: Partial<BreadcrumbOptions>) => {
       return null
     }
 
+    // Hide breadcrumbs on index and language homepages
+    const slug = fileData.slug || ""
+    if (slug === "index" || slug === "en" || slug === "cn" || slug === "cn/index" || slug === "en/index") {
+      return null
+    }
+
     const crumbs: CrumbData[] = pathNodes.map((node, idx) => {
       const crumb = formatCrumb(node.displayName, fileData.slug!, simplifySlug(node.slug))
       if (idx === 0) {
