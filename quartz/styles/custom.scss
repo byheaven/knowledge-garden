@@ -7,8 +7,21 @@
 body,
 div#quartz-root.page,
 div#quartz-root.page body,
+body p,
+body a,
+body a.internal,
+body a.external,
+body div:not(.highlight):not(pre),
+body li,
+body ul,
+body ol,
 .explorer,
-.explorer *:not(code):not(pre):not(kbd):not(samp) {
+.explorer *:not(code):not(pre):not(kbd):not(samp),
+.content,
+.content p,
+.content a,
+.content div:not(.highlight):not(pre),
+.content li {
   font-family: "LXGW WenKai GB Screen", "Noto Sans SC", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif !important;
   font-size: 1.08rem;
   line-height: 1.7;
