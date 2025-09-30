@@ -1,3 +1,25 @@
+const LANG_STORAGE_KEY = "quartz-preferred-lang"
+
+// Detect browser language
+function detectBrowserLanguage(): "cn" | "en" {
+  const browserLang = navigator.language || (navigator as any).userLanguage
+  // Check if language code starts with 'zh' (Chinese variants)
+  if (browserLang && browserLang.toLowerCase().startsWith("zh")) {
+    return "cn"
+  }
+  return "en"
+}
+
+// Get user's preferred language
+function getPreferredLanguage(): "cn" | "en" {
+  const savedLang = localStorage.getItem(LANG_STORAGE_KEY) as "cn" | "en" | null
+  if (savedLang) {
+    return savedLang
+  }
+  // If no saved preference, detect from browser
+  return detectBrowserLanguage()
+}
+
 type WalineInstance = {
   update: (options?: Partial<WalineOptions>) => void
   destroy: () => void
@@ -79,9 +101,9 @@ document.addEventListener("nav", () => {
     .then((module) => {
       const dataset = walineContainer.dataset
 
-      // Detect language from URL path
-      const currentPath = window.location.pathname
-      const detectedLang = currentPath.startsWith("/cn/") || currentPath === "/cn" ? "zh-CN" : "en"
+      // Use user's preferred language for comments
+      const preferredLang = getPreferredLanguage()
+      const walineLang = preferredLang === "cn" ? "zh-CN" : "en"
 
       const options: WalineOptions = {
         el: walineContainer,
@@ -90,7 +112,7 @@ document.addEventListener("nav", () => {
           dataset.path === "window.location.pathname"
             ? window.location.pathname
             : dataset.path || window.location.pathname,
-        lang: detectedLang,
+        lang: walineLang,
         dark: getTheme(),
         pageSize: dataset.pageSize ? parseInt(dataset.pageSize) : 10,
         login: (dataset.login as "enable" | "disable" | "force") || "enable",

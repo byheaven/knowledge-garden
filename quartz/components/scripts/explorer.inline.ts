@@ -4,6 +4,28 @@ import { ContentDetails } from "../../plugins/emitters/contentIndex"
 
 type MaybeHTMLElement = HTMLElement | undefined
 
+const LANG_STORAGE_KEY = "quartz-preferred-lang"
+
+// Detect browser language
+function detectBrowserLanguage(): "cn" | "en" {
+  const browserLang = navigator.language || (navigator as any).userLanguage
+  // Check if language code starts with 'zh' (Chinese variants)
+  if (browserLang && browserLang.toLowerCase().startsWith("zh")) {
+    return "cn"
+  }
+  return "en"
+}
+
+// Get user's preferred language
+function getPreferredLanguage(): "cn" | "en" {
+  const savedLang = localStorage.getItem(LANG_STORAGE_KEY) as "cn" | "en" | null
+  if (savedLang) {
+    return savedLang
+  }
+  // If no saved preference, detect from browser
+  return detectBrowserLanguage()
+}
+
 interface ParsedOptions {
   folderClickBehavior: "collapse" | "link"
   folderDefaultState: "collapsed" | "open"
@@ -198,24 +220,14 @@ async function setupExplorer(currentSlug: FullSlug) {
     }
 
     // Apply language filtering: show only content from cn/ or en/ folders
-    // Get current language from URL
-    const path = window.location.pathname
-    let currentLang: "cn" | "en" | null = null
-    if (path.startsWith("/cn/") || path === "/cn") {
-      currentLang = "cn"
-    } else if (path.startsWith("/en/") || path === "/en") {
-      currentLang = "en"
-    }
-
-    // If on a language page, show only that language folder's contents
-    if (currentLang) {
-      const langFolder = trie.children.find(
-        (child) => child.isFolder && child.slugSegment === currentLang,
-      )
-      if (langFolder) {
-        // Replace root children with language folder's children
-        trie.children = langFolder.children
-      }
+    // Use user's preferred language, not current URL path
+    const preferredLang = getPreferredLanguage()
+    const langFolder = trie.children.find(
+      (child) => child.isFolder && child.slugSegment === preferredLang,
+    )
+    if (langFolder) {
+      // Replace root children with language folder's children
+      trie.children = langFolder.children
     }
 
     // Get folder paths for state management

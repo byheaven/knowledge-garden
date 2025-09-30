@@ -60,7 +60,7 @@ export default ((opts?: Partial<BreadcrumbOptions>) => {
 
     // Hide breadcrumbs on index and language homepages
     const slug = fileData.slug || ""
-    if (slug === "index" || slug === "en" || slug === "cn" || slug === "cn/index" || slug === "en/index") {
+    if (slug === "index" || slug === "cn" || slug === "cn/index" || slug === "en/index") {
       return null
     }
 
@@ -88,8 +88,12 @@ export default ((opts?: Partial<BreadcrumbOptions>) => {
       // Rename the first crumb (language folder) appropriately
       if (language === "cn") {
         crumbs[0].displayName = "首页"
+        // Chinese homepage is at /cn/
+        crumbs[0].path = "/cn/"
       } else if (language === "en") {
         crumbs[0].displayName = "Home"
+        // English homepage is at root /
+        crumbs[0].path = "/"
       }
     }
 

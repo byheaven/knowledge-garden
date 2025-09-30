@@ -10,12 +10,19 @@ function detectBrowserLanguage(): "cn" | "en" {
   return "en"
 }
 
-// Get current language from URL
-function getCurrentLanguage(): "cn" | "en" | null {
-  const path = window.location.pathname
-  if (path.startsWith("/cn/") || path === "/cn") return "cn"
-  if (path.startsWith("/en/") || path === "/en") return "en"
-  return null
+// Set the language attribute on document root
+const userPrefLang = detectBrowserLanguage()
+const currentLang = localStorage.getItem(LANG_STORAGE_KEY) ?? userPrefLang
+document.documentElement.setAttribute("saved-lang", currentLang)
+
+// Get user's preferred language
+function getPreferredLanguage(): "cn" | "en" {
+  const savedLang = localStorage.getItem(LANG_STORAGE_KEY) as "cn" | "en" | null
+  if (savedLang) {
+    return savedLang
+  }
+  // If no saved preference, detect from browser
+  return detectBrowserLanguage()
 }
 
 // Auto-redirect on root page based on preference or browser language
@@ -29,40 +36,40 @@ function autoRedirectOnRoot() {
   const savedLang = localStorage.getItem(LANG_STORAGE_KEY) as "cn" | "en" | null
 
   if (savedLang) {
-    // Redirect to saved preference
-    window.location.href = `/${savedLang}`
+    // If saved preference is Chinese, redirect to /cn
+    if (savedLang === "cn") {
+      window.location.href = "/cn"
+    }
+    // If saved preference is English, stay on root (no redirect needed)
   } else {
     // First visit: detect browser language
     const detectedLang = detectBrowserLanguage()
     localStorage.setItem(LANG_STORAGE_KEY, detectedLang)
-    window.location.href = `/${detectedLang}`
+    if (detectedLang === "cn") {
+      window.location.href = "/cn"
+    }
+    // If English, stay on root (no redirect needed)
   }
 }
 
 // Handle language switch button click
 function switchLanguage() {
-  const currentPath = window.location.pathname
+  const currentLang = getPreferredLanguage()
   let newPath: string
   let newLang: "cn" | "en"
 
-  // Detect current language and switch
-  if (currentPath.startsWith("/cn/") || currentPath === "/cn") {
-    // Switch from Chinese to English
-    newPath = currentPath.replace(/^\/cn/, "/en")
+  // Switch to opposite language - always go to homepage
+  if (currentLang === "cn") {
+    newPath = "/"
     newLang = "en"
-  } else if (currentPath.startsWith("/en/") || currentPath === "/en") {
-    // Switch from English to Chinese
-    newPath = currentPath.replace(/^\/en/, "/cn")
-    newLang = "cn"
   } else {
-    // At root or other path, go to opposite of saved preference
-    const savedLang = localStorage.getItem(LANG_STORAGE_KEY) as "cn" | "en" | null
-    newLang = savedLang === "cn" ? "en" : "cn"
-    newPath = `/${newLang}`
+    newPath = "/cn"
+    newLang = "cn"
   }
 
-  // Save new preference
+  // Save new preference and update attribute
   localStorage.setItem(LANG_STORAGE_KEY, newLang)
+  document.documentElement.setAttribute("saved-lang", newLang)
 
   // Navigate to new path
   window.location.href = newPath

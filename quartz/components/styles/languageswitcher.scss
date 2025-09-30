@@ -4,23 +4,49 @@
   position: relative;
   background: none;
   border: none;
-  width: 20px;
-  height: 20px;
+  width: 24px;
+  height: 24px;
   margin: 0;
   text-align: inherit;
   flex-shrink: 0;
 
-  & svg {
+  & span {
     position: absolute;
-    width: 20px;
-    height: 20px;
-    top: calc(50% - 10px);
-    fill: var(--darkgray);
+    width: 24px;
+    height: 24px;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--darkgray);
     transition: all 0.2s ease;
   }
+}
 
-  &:hover svg {
-    fill: var(--secondary);
-    transform: scale(1.1);
+body button.language-switcher:hover span {
+  color: var(--secondary);
+  transform: scale(1.1);
+}
+
+/* Show Chinese icon when current language is Chinese */
+:root[saved-lang="cn"] .language-switcher {
+  & > .enIcon {
+    display: none;
+  }
+  & > .cnIcon {
+    display: flex;
+  }
+}
+
+/* Show English icon when current language is English (default) */
+:root .language-switcher {
+  & > .enIcon {
+    display: flex;
+  }
+  & > .cnIcon {
+    display: none;
   }
 }
