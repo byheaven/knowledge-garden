@@ -197,6 +197,27 @@ async function setupExplorer(currentSlug: FullSlug) {
       }
     }
 
+    // Apply language filtering: show only content from cn/ or en/ folders
+    // Get current language from URL
+    const path = window.location.pathname
+    let currentLang: "cn" | "en" | null = null
+    if (path.startsWith("/cn/") || path === "/cn") {
+      currentLang = "cn"
+    } else if (path.startsWith("/en/") || path === "/en") {
+      currentLang = "en"
+    }
+
+    // If on a language page, show only that language folder's contents
+    if (currentLang) {
+      const langFolder = trie.children.find(
+        (child) => child.isFolder && child.slugSegment === currentLang,
+      )
+      if (langFolder) {
+        // Replace root children with language folder's children
+        trie.children = langFolder.children
+      }
+    }
+
     // Get folder paths for state management
     const folderPaths = trie.getFolderPaths()
     currentExplorerState = folderPaths.map((path) => {

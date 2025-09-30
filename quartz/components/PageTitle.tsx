@@ -3,6 +3,9 @@ import { QuartzComponent, QuartzComponentConstructor, QuartzComponentProps } fro
 import { classNames } from "../util/lang"
 import { i18n } from "../i18n"
 
+// @ts-ignore
+import script from "./scripts/pagetitle.inline"
+
 const PageTitle: QuartzComponent = ({ fileData, cfg, displayClass }: QuartzComponentProps) => {
   const title = cfg?.pageTitle ?? i18n(cfg.locale).propertyDefaults.title
   const slug = fileData.slug || ""
@@ -34,5 +37,7 @@ PageTitle.css = `
   font-family: var(--titleFont);
 }
 `
+
+PageTitle.afterDOMLoaded = script
 
 export default (() => PageTitle) satisfies QuartzComponentConstructor

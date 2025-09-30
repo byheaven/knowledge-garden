@@ -78,9 +78,6 @@ document.addEventListener("nav", () => {
     window.addCleanup(() => languageButton.removeEventListener("click", switchLanguage))
   }
 
-  // Update localStorage with current language if on language page
-  const currentLang = getCurrentLanguage()
-  if (currentLang) {
-    localStorage.setItem(LANG_STORAGE_KEY, currentLang)
-  }
+  // Do NOT automatically update language preference based on current URL
+  // Language preference should only change when user manually clicks the switch button
 })
