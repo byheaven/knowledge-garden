@@ -11,11 +11,16 @@ interface ContentMetaOptions {
    * Whether to display reading time
    */
   showReadingTime: boolean
+  /**
+   * Whether to display pageviews count (requires Waline)
+   */
+  showPageviews: boolean
   showComma: boolean
 }
 
 const defaultOptions: ContentMetaOptions = {
   showReadingTime: true,
+  showPageviews: true,
   showComma: true,
 }
 
@@ -40,6 +45,32 @@ export default ((opts?: Partial<ContentMetaOptions>) => {
           minutes: Math.ceil(minutes),
         })
         segments.push(<span>{displayedTime}</span>)
+      }
+
+      // Display pageviews if enabled
+      if (options.showPageviews) {
+        segments.push(
+          <span>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              style="display: inline; vertical-align: text-bottom; margin-right: 4px;"
+            >
+              <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z" />
+              <circle cx="12" cy="12" r="3" />
+            </svg>
+            <span class="waline-pageview-count" data-path={fileData.slug ?? ""}>
+              ...
+            </span>
+          </span>,
+        )
       }
 
       const segmentsWithCommas = segments.map((segment, index) => (

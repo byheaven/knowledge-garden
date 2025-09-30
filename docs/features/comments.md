@@ -8,7 +8,7 @@ Quartz also has the ability to hook into various providers to enable readers to 
 
 ![[giscus-example.png]]
 
-As of today, only [Giscus](https://giscus.app/) is supported out of the box but PRs to support other providers are welcome!
+Currently, Quartz supports two comment providers out of the box: [Giscus](https://giscus.app/) and [Waline](https://waline.js.org/).
 
 ## Providers
 
@@ -131,3 +131,131 @@ title: Comments disabled here!
 comments: false
 ---
 ```
+
+### Waline
+
+[Waline](https://waline.js.org/) is a simple, safe, and fast comment system that supports anonymous comments without requiring users to log in with GitHub. It's free to deploy on Vercel.
+
+#### Setup
+
+1. **Deploy Waline Server**
+
+   The easiest way is to deploy on Vercel (free):
+
+   - Click the deploy button on [Waline Quick Start](https://waline.js.org/en/guide/get-started.html)
+   - Login with GitHub
+   - Click "Deploy" to create your Waline instance
+   - After deployment, you'll get a URL like `https://your-waline-server.vercel.app`
+
+2. **Configure Waline in Quartz**
+
+   In `quartz.layout.ts`, edit the `afterBody` field of `sharedPageComponents`:
+
+   ```ts title="quartz.layout.ts"
+   afterBody: [
+     Component.Comments({
+       provider: 'waline',
+       options: {
+         serverURL: 'https://your-waline-server.vercel.app',
+         lang: 'en',
+       }
+     }),
+   ],
+   ```
+
+#### Customization
+
+Waline supports various configuration options:
+
+```ts
+type WalineOptions = {
+  provider: "waline"
+  options: {
+    // Waline server URL (required)
+    serverURL: string
+
+    // Article path for comments, defaults to window.location.pathname
+    path?: string
+
+    // Language for UI
+    // defaults to 'en'
+    lang?: string
+
+    // Custom locale strings
+    locale?: Record<string, string>
+
+    // Emoji presets
+    // defaults to Waline's built-in emojis
+    emoji?: string[]
+
+    // Dark mode support
+    // can be true, false, or 'auto'
+    // defaults to 'auto'
+    dark?: boolean | "auto"
+
+    // User metadata fields to display
+    // defaults to ['nick', 'mail', 'link']
+    meta?: string[]
+
+    // Required metadata fields
+    // defaults to []
+    requiredMeta?: string[]
+
+    // Word limit for comments
+    wordLimit?: number
+
+    // Number of comments per page
+    // defaults to 10
+    pageSize?: number
+
+    // Login mode
+    // 'enable': login is optional (default)
+    // 'disable': anonymous only
+    // 'force': login required
+    login?: "enable" | "disable" | "force"
+
+    // Show copyright info
+    // defaults to true
+    copyright?: boolean
+  }
+}
+```
+
+#### Anonymous Comments
+
+One of Waline's key features is support for anonymous comments. Users can leave comments without logging in. You can control this behavior with the `login` option:
+
+- `'enable'` (default): Users can optionally log in
+- `'disable'`: Only anonymous comments allowed
+- `'force'`: Login required for all comments
+
+```ts title="quartz.layout.ts"
+Component.Comments({
+  provider: 'waline',
+  options: {
+    serverURL: 'https://your-waline-server.vercel.app',
+    login: 'disable', // Anonymous only
+  }
+})
+```
+
+#### Conditionally display comments
+
+Just like Giscus, Waline also respects the `comments` frontmatter field:
+
+```
+---
+title: Comments disabled here!
+comments: false
+---
+```
+
+## Comparison
+
+| Feature | Giscus | Waline |
+|---------|--------|--------|
+| Authentication | Requires GitHub login | Supports anonymous |
+| Backend | GitHub Discussions | Self-hosted (Vercel free tier) |
+| Setup Complexity | Easy | Easy |
+| Data Ownership | GitHub | Your database |
+| Comment Moderation | GitHub Discussion tools | Waline admin panel |
