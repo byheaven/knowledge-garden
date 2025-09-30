@@ -21,7 +21,8 @@
     stroke-width: 0.5px;
   }
 
-  &:hover svg {
+  &:hover .dayIcon,
+  &:hover .nightIcon {
     fill: var(--secondary) !important;
     stroke: var(--secondary) !important;
     transform: scale(1.1) !important;
@@ -43,12 +44,6 @@
   & > .nightIcon {
     display: inline;
   }
-
-  &:hover svg {
-    fill: var(--secondary) !important;
-    stroke: var(--secondary) !important;
-    transform: scale(1.1) !important;
-  }
 }
 
 :root .darkmode {
@@ -57,11 +52,5 @@
   }
   & > .nightIcon {
     display: none;
-  }
-
-  &:hover svg {
-    fill: var(--secondary) !important;
-    stroke: var(--secondary) !important;
-    transform: scale(1.1) !important;
   }
 }
