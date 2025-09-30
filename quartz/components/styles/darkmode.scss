@@ -18,15 +18,14 @@
     fill: var(--darkgray);
     transition: all 0.2s ease;
     stroke: var(--darkgray);
-    stroke-width: 0.5px;
+    stroke-width: 2px;
   }
 
-  &:hover .dayIcon,
-  &:hover .nightIcon {
-    fill: var(--secondary) !important;
-    stroke: var(--secondary) !important;
-    transform: scale(1.1) !important;
-  }
+}
+
+body button.darkmode:hover {
+  background: var(--secondary) !important;
+  transform: scale(1.1);
 }
 
 :root[saved-theme="dark"] {
