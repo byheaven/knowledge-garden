@@ -68,10 +68,10 @@ function switchLanguage() {
   window.location.href = newPath
 }
 
-document.addEventListener("nav", () => {
-  // Auto-redirect if on root page
-  autoRedirectOnRoot()
+// Run auto-redirect immediately on page load to avoid flash
+autoRedirectOnRoot()
 
+document.addEventListener("nav", () => {
   // Set up language switcher button
   for (const languageButton of document.getElementsByClassName("language-switcher")) {
     languageButton.addEventListener("click", switchLanguage)

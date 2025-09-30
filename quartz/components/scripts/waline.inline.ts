@@ -78,6 +78,11 @@ document.addEventListener("nav", () => {
   import("https://unpkg.com/@waline/client@v3/dist/waline.js")
     .then((module) => {
       const dataset = walineContainer.dataset
+
+      // Detect language from URL path
+      const currentPath = window.location.pathname
+      const detectedLang = currentPath.startsWith("/cn/") || currentPath === "/cn" ? "zh-CN" : "en"
+
       const options: WalineOptions = {
         el: walineContainer,
         serverURL: dataset.serverUrl,
@@ -85,7 +90,7 @@ document.addEventListener("nav", () => {
           dataset.path === "window.location.pathname"
             ? window.location.pathname
             : dataset.path || window.location.pathname,
-        lang: dataset.lang || "en",
+        lang: detectedLang,
         dark: getTheme(),
         pageSize: dataset.pageSize ? parseInt(dataset.pageSize) : 10,
         login: (dataset.login as "enable" | "disable" | "force") || "enable",
