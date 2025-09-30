@@ -33,11 +33,20 @@
       height: 20px;
       min-width: 20px;
       margin: 0 0.5rem;
+      transition: all 0.2s ease;
 
       .search-path {
         stroke: var(--darkgray);
         stroke-width: 2px;
-        transition: stroke 0.5s ease;
+        transition: stroke 0.2s ease;
+      }
+    }
+
+    &:hover svg {
+      transform: scale(1.1);
+
+      .search-path {
+        stroke: var(--secondary);
       }
     }
   }
