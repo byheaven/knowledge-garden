@@ -54,6 +54,7 @@ export const defaultListPageLayout: PageLayout = {
       components: [
         { Component: Component.Search() },
         { Component: Component.Darkmode() },
+        { Component: Component.ReaderMode() },
       ],
     }),
     Component.Explorer(),

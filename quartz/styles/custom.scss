@@ -107,7 +107,7 @@ pre code[data-theme*=" "] {
       display: flex !important;
       justify-content: flex-end !important;
       pointer-events: none !important;
-      z-index: 10 !important;
+      z-index: 100 !important;
 
       & > * {
         pointer-events: auto !important;
@@ -173,4 +173,14 @@ pre code[data-theme*=" "] {
 .page-title > a {
   font-size: inherit !important;
   line-height: inherit;
+}
+
+// Adjust Edit page and View history links
+a.edit-btn {
+  font-size: 0.85rem !important;
+  opacity: 0.6 !important;
+
+  &:hover {
+    opacity: 0.8 !important;
+  }
 }
