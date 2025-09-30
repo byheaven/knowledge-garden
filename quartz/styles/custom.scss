@@ -205,6 +205,14 @@ pre code[data-theme*=" "] {
     flex: 1 !important;
     margin-top: 0 !important;
     margin-bottom: 0 !important;
+    max-width: calc(100% - 200px) !important; // Prevent overlap with fixed icons (Explorer + icons space)
+    font-size: clamp(1.2rem, 5vw, 2.5rem) !important; // Responsive font size that scales with viewport
+    line-height: 1.3 !important;
+  }
+
+  .page > #quartz-body .sidebar.left > .page-title > a {
+    font-size: inherit !important;
+    line-height: inherit !important;
   }
 
   // Row 2: Socials on its own line, aligned with PageTitle
