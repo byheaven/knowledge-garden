@@ -29,13 +29,14 @@
 
     & svg {
       cursor: pointer;
-      width: 18px;
-      min-width: 18px;
+      width: 20px;
+      height: 20px;
+      min-width: 20px;
       margin: 0 0.5rem;
 
       .search-path {
         stroke: var(--darkgray);
-        stroke-width: 1.5px;
+        stroke-width: 2px;
         transition: stroke 0.5s ease;
       }
     }
