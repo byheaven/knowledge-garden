@@ -53,7 +53,8 @@ export const defaultContentPageLayout: PageLayout = {
       components: [
         { Component: Component.Search() },
         { Component: Component.Darkmode() },
-        { Component: Component.ReaderMode() },
+        // { Component: Component.ReaderMode() },
+        { Component: Component.LanguageSwitcher() },
       ],
     }),
     Component.Explorer(),
@@ -82,7 +83,8 @@ export const defaultListPageLayout: PageLayout = {
       components: [
         { Component: Component.Search() },
         { Component: Component.Darkmode() },
-        { Component: Component.ReaderMode() },
+        // { Component: Component.ReaderMode() },
+        { Component: Component.LanguageSwitcher() },
       ],
     }),
     Component.Explorer(),

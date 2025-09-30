@@ -5,6 +5,7 @@ import NotFound from "./pages/404"
 import ArticleTitle from "./ArticleTitle"
 import Darkmode from "./Darkmode"
 import ReaderMode from "./ReaderMode"
+import LanguageSwitcher from "./LanguageSwitcher"
 import Head from "./Head"
 import PageTitle from "./PageTitle"
 import ContentMeta from "./ContentMeta"
@@ -32,6 +33,7 @@ export {
   FolderContent,
   Darkmode,
   ReaderMode,
+  LanguageSwitcher,
   Head,
   PageTitle,
   ContentMeta,
