@@ -314,6 +314,15 @@ a.edit-btn {
   }
 }
 
+// Increase font size for article body content only (not headings, not sidebar components)
+article p,
+article li,
+article td,
+article blockquote,
+article a:not(h1 a):not(h2 a):not(h3 a):not(h4 a):not(h5 a):not(h6 a) {
+  font-size: 1.1rem !important;
+}
+
 // Reduce font size for footer and comment system credits
 footer,
 footer *,
