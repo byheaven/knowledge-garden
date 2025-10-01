@@ -286,12 +286,9 @@ a.edit-btn {
 // Mobile: Add dotted divider line above Backlinks (only shows if backlinks exist)
 @media #{$mobile} {
   .mobile-only.toc {
-    border-top: 1px dotted var(--lightgray) !important;
+    display: flex !important;
+    flex-direction: column !important;
     border-bottom: 1px dotted var(--lightgray) !important;
-    padding-top: 1.5rem !important;
-    padding-bottom: 1.5rem !important;
-    margin-top: 1.5rem !important;
-    margin-bottom: 1.5rem !important;
   }
 
   .mobile-only.backlinks {
