@@ -26,10 +26,10 @@ body ol,
 .content,
 .content p,
 .content a,
-.content div:not(.highlight):not(pre),
+.content div:not(.highlight):not(pre):not(.breadcrumb-container),
 .content li {
   font-family: "LXGW WenKai GB Screen", "Noto Sans SC", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif !important;
-  font-size: 1.08rem;
+  // font-size: 1.08rem;  // Commented out - too broad, overrides many components
   line-height: 1.7;
 }
 
@@ -272,6 +272,15 @@ a.edit-btn {
 
 // Mobile: Add dotted divider line above Backlinks (only shows if backlinks exist)
 @media #{$mobile} {
+  .mobile-only.toc {
+    border-top: 1px dotted var(--lightgray) !important;
+    border-bottom: 1px dotted var(--lightgray) !important;
+    padding-top: 1.5rem !important;
+    padding-bottom: 1.5rem !important;
+    margin-top: 1.5rem !important;
+    margin-bottom: 1.5rem !important;
+  }
+
   .mobile-only.backlinks {
     border-top: 1px dotted var(--lightgray) !important;
     padding-top: 2rem !important;
