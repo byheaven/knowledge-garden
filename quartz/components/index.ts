@@ -26,6 +26,7 @@ import Comments from "./Comments"
 import Flex from "./Flex"
 import ConditionalRender from "./ConditionalRender"
 import Socials from "./Socials"
+import { PageList } from "./PageList"
 
 export {
   ArticleTitle,
@@ -56,4 +57,5 @@ export {
   Flex,
   ConditionalRender,
   Socials,
+  PageList,
 }

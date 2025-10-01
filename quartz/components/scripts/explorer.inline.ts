@@ -246,16 +246,19 @@ async function setupExplorer(currentSlug: FullSlug) {
     explorerUl.insertBefore(fragment, explorerUl.firstChild)
 
     // restore explorer scrollTop position if it exists
-    const scrollTop = sessionStorage.getItem("explorerScrollTop")
-    if (scrollTop) {
-      explorerUl.scrollTop = parseInt(scrollTop)
-    } else {
-      // try to scroll to the active element if it exists
-      const activeElement = explorerUl.querySelector(".active")
-      if (activeElement) {
-        activeElement.scrollIntoView({ behavior: "smooth" })
+    // Use requestAnimationFrame to ensure DOM is fully rendered before scrolling
+    requestAnimationFrame(() => {
+      const scrollTop = sessionStorage.getItem("explorerScrollTop")
+      if (scrollTop) {
+        explorerUl.scrollTop = parseInt(scrollTop)
+      } else {
+        // try to scroll to the active element if it exists
+        const activeElement = explorerUl.querySelector(".active")
+        if (activeElement) {
+          activeElement.scrollIntoView({ behavior: "smooth" })
+        }
       }
-    }
+    })
 
     // Set up event handlers
     const explorerButtons = explorer.getElementsByClassName(

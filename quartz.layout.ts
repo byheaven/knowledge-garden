@@ -57,7 +57,7 @@ export const defaultContentPageLayout: PageLayout = {
         { Component: Component.LanguageSwitcher() },
       ],
     }),
-    Component.RecentNotes({ limit: 5, showTags: true }),
+    Component.RecentNotes({ limit: 3, showTags: true }),
     Component.Explorer(),
   ],
   right: [
@@ -89,7 +89,7 @@ export const defaultListPageLayout: PageLayout = {
         { Component: Component.LanguageSwitcher() },
       ],
     }),
-    Component.RecentNotes({ limit: 5, showTags: true }),
+    Component.RecentNotes({ limit: 3, showTags: true }),
     Component.Explorer(),
   ],
   right: [],

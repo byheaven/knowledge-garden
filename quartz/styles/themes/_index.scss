@@ -6,7 +6,7 @@
 }
 
 :root:root {
-  --light: #d4d4d4 !important;
+  --light: #ffffff !important;
   --gray: #5c5c5c !important;
   --darkgray: #5c5c5c !important;
   --highlight: #ffcc00 !important;
@@ -29,7 +29,7 @@
   --code-value: #af52de !important;
 }
 :root:root[saved-theme="dark"] {
-  --light: #3f3f3f !important;
+  --light: #24262a !important;
   --gray: #b3b3b3 !important;
   --darkgray: #b3b3b3 !important;
   --highlight: #ffd60a !important;
@@ -227,7 +227,7 @@ html {
 
 body {
   &[data-slug] {
-    background: light-dark(rgb(246, 246, 246), rgb(38, 38, 38)) !important;
+    background: light-dark(rgb(255, 255, 255), rgb(36, 38, 42)) !important;
     color: light-dark(rgb(54, 54, 54), rgb(205, 205, 205));
   }
 
@@ -741,7 +741,7 @@ body {
   }
 
   .explorer .explorer-content {
-    background-color: light-dark(rgb(246, 246, 246), rgb(38, 38, 38));
+    background-color: light-dark(rgb(255, 255, 255), rgb(36, 38, 42));
   }
 
   .explorer .explorer-content li:has(> .folder-outer.open) > .folder-container {
@@ -867,23 +867,23 @@ body {
   }
 
   .page > #quartz-body {
-    background-color: light-dark(rgb(255, 255, 255), rgb(30, 30, 30));
+    background-color: light-dark(rgb(255, 255, 255), rgb(36, 38, 42));
   }
 
   .page > #quartz-body .left.sidebar {
-    background-color: light-dark(rgb(246, 246, 246), rgb(38, 38, 38));
+    background-color: light-dark(rgb(245, 246, 248), rgb(32, 34, 37));
     border-color: rgba(0, 0, 0, 0);
     border-right-width: 1px;
   }
 
   .page > #quartz-body .right.sidebar {
-    background-color: light-dark(rgb(246, 246, 246), rgb(38, 38, 38));
+    background-color: light-dark(rgb(245, 246, 248), rgb(32, 34, 37));
     border-color: rgba(0, 0, 0, 0);
     border-left-width: 1px;
   }
 
   .page > #quartz-body .sidebar.left:has(.explorer) {
-    background-color: light-dark(rgb(246, 246, 246), rgb(38, 38, 38));
+    background-color: light-dark(rgb(245, 246, 248), rgb(32, 34, 37));
   }
 
   .page > #quartz-body div.center {
@@ -1110,7 +1110,7 @@ body {
   }
 
   .popover .popover-inner {
-    background-color: light-dark(rgb(255, 255, 255), rgb(30, 30, 30));
+    background-color: light-dark(rgb(255, 255, 255), rgb(36, 38, 42));
     border-color: rgba(0, 0, 0, 0);
   }
 
@@ -1136,7 +1136,7 @@ body {
   }
 
   .search > .search-container > .search-space {
-    background-color: light-dark(rgb(246, 246, 246), rgb(38, 38, 38));
+    background-color: light-dark(rgb(255, 255, 255), rgb(36, 38, 42));
     border: 1px solid rgb(63, 63, 63);
     border-radius: 16px;
     box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 62px 0px;

@@ -185,9 +185,9 @@ body.theme-dark {
   --background-modifier-message: rgba(0, 0, 0, 0.9);
   --background-modifier-success: #32d74b;
   --background-modifier-success-rgb: 50, 215, 75;
-  --background-primary: #1e1e1e;
+  --background-primary: #24262a;
   --background-primary-alt: #242424;
-  --background-secondary: #262626;
+  --background-secondary: #24262a;
   --background-secondary-alt: #363636;
   --bases-cards-background: #1e1e1e;
   --bases-cards-border-width: 1px;
@@ -2209,7 +2209,7 @@ body.theme-light {
   --background-modifier-success-rgb: 40, 205, 65;
   --background-primary: #ffffff;
   --background-primary-alt: #fafafa;
-  --background-secondary: #f6f6f6;
+  --background-secondary: #ffffff;
   --background-secondary-alt: #fcfcfc;
   --bases-cards-background: #ffffff;
   --bases-cards-border-width: 1px;
