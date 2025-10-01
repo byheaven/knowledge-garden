@@ -17,10 +17,37 @@ type SearchType = "basic" | "tags"
 let searchType: SearchType = "basic"
 let currentSearchTerm: string = ""
 const encoder = (str: string) => {
-  return str
-    .toLowerCase()
-    .split(/\s+/)
-    .filter((token) => token.length > 0)
+  const lowerStr = str.toLowerCase()
+
+  // Check if string contains CJK characters (Chinese, Japanese, Korean)
+  const hasCJK = /[\u3040-\u309f\u30a0-\u30ff\u4e00-\u9fff\uac00-\ud7af]/.test(lowerStr)
+
+  if (hasCJK) {
+    // For CJK text: split into individual characters and also create bigrams
+    const tokens: string[] = []
+    const chars = Array.from(lowerStr)
+
+    // Add individual characters
+    for (const char of chars) {
+      // Only add CJK characters and alphanumeric characters
+      if (/[\u3040-\u309f\u30a0-\u30ff\u4e00-\u9fff\uac00-\ud7af\w]/.test(char)) {
+        tokens.push(char)
+      }
+    }
+
+    // Add bigrams (2-character combinations) for better matching
+    for (let i = 0; i < chars.length - 1; i++) {
+      const bigram = chars[i] + chars[i + 1]
+      if (/[\u3040-\u309f\u30a0-\u30ff\u4e00-\u9fff\uac00-\ud7af]/.test(bigram)) {
+        tokens.push(bigram)
+      }
+    }
+
+    return tokens.filter((token) => token.length > 0)
+  } else {
+    // For non-CJK text: use whitespace splitting
+    return lowerStr.split(/\s+/).filter((token) => token.length > 0)
+  }
 }
 
 let index = new FlexSearch.Document<Item>({
@@ -52,19 +79,52 @@ const numSearchResults = 8
 const numTagResults = 5
 
 const tokenizeTerm = (term: string) => {
-  const tokens = term.split(/\s+/).filter((t) => t.trim() !== "")
-  const tokenLen = tokens.length
-  if (tokenLen > 1) {
-    for (let i = 1; i < tokenLen; i++) {
-      tokens.push(tokens.slice(0, i + 1).join(" "))
-    }
-  }
+  // Check if term contains CJK characters
+  const hasCJK = /[\u3040-\u309f\u30a0-\u30ff\u4e00-\u9fff\uac00-\ud7af]/.test(term)
 
-  return tokens.sort((a, b) => b.length - a.length) // always highlight longest terms first
+  if (hasCJK) {
+    // For CJK: return the whole term as a single token for exact matching
+    return [term.trim()]
+  } else {
+    // For non-CJK: use original space-based tokenization
+    const tokens = term.split(/\s+/).filter((t) => t.trim() !== "")
+    const tokenLen = tokens.length
+    if (tokenLen > 1) {
+      for (let i = 1; i < tokenLen; i++) {
+        tokens.push(tokens.slice(0, i + 1).join(" "))
+      }
+    }
+    return tokens.sort((a, b) => b.length - a.length)
+  }
 }
 
 function highlight(searchTerm: string, text: string, trim?: boolean) {
   const tokenizedTerms = tokenizeTerm(searchTerm)
+  const hasCJK = /[\u3040-\u309f\u30a0-\u30ff\u4e00-\u9fff\uac00-\ud7af]/.test(text)
+
+  // For CJK text: use direct string replacement without word tokenization
+  if (hasCJK) {
+    let result = text
+    for (const searchTok of tokenizedTerms) {
+      const regex = new RegExp(searchTok.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), "gi")
+      result = result.replace(regex, `<span class="highlight">$&</span>`)
+    }
+
+    // If trim is enabled, try to extract context around first match
+    if (trim) {
+      const firstMatchIndex = result.indexOf('<span class="highlight">')
+      if (firstMatchIndex !== -1) {
+        const contextChars = contextWindowWords * 15 // Approximate characters
+        const start = Math.max(0, firstMatchIndex - contextChars)
+        const end = Math.min(result.length, firstMatchIndex + contextChars * 2)
+        result = result.slice(start, end)
+        return `${start === 0 ? "" : "..."}${result}${end === result.length ? "" : "..."}`
+      }
+    }
+    return result
+  }
+
+  // For non-CJK text: use original word-based tokenization
   let tokenizedText = text.split(/\s+/).filter((t) => t !== "")
 
   let startIndex = 0
