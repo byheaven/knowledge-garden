@@ -8,6 +8,9 @@ import { GlobalConfiguration } from "../cfg"
 import { i18n } from "../i18n"
 import { classNames } from "../util/lang"
 
+// @ts-ignore
+import script from "./scripts/recentNotes.inline"
+
 interface Options {
   title?: string
   limit: number
@@ -21,7 +24,12 @@ const defaultOptions = (cfg: GlobalConfiguration): Options => ({
   limit: 3,
   linkToMore: false,
   showTags: true,
-  filter: () => true,
+  filter: (f: QuartzPluginData) => {
+    // Filter out homepage files
+    const slug = f.slug || ""
+    const isHomepage = slug === "cn" || slug === "en" || slug === "index" || slug === ""
+    return !isHomepage
+  },
   sort: byDateAndAlphabetical(cfg),
 })
 
@@ -48,7 +56,7 @@ export default ((userOpts?: Partial<Options>) => {
                 <div class="section">
                   <div class="desc">
                     <h3>
-                      <a href={resolveRelative(fileData.slug!, page.slug!)} class="internal">
+                      <a href={`/${page.slug}`} class="internal" data-slug={page.slug}>
                         {title}
                       </a>
                     </h3>
@@ -89,5 +97,6 @@ export default ((userOpts?: Partial<Options>) => {
   }
 
   RecentNotes.css = style
+  RecentNotes.afterDOMLoaded = script
   return RecentNotes
 }) satisfies QuartzComponentConstructor

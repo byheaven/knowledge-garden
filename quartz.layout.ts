@@ -42,6 +42,7 @@ export const defaultContentPageLayout: PageLayout = {
       links: {
         GitHub: "https://github.com/byheaven",
         X: "https://x.com/byheaven0912",
+        Email: "mailto:byheaven0912@gmail.com",
         RSS: "https://byheaven.net/index.xml",
       },
     }),
@@ -54,6 +55,7 @@ export const defaultContentPageLayout: PageLayout = {
         { Component: Component.LanguageSwitcher() },
       ],
     }),
+    Component.RecentNotes({ limit: 5, showTags: true }),
     Component.Explorer(),
   ],
   right: [
@@ -72,6 +74,7 @@ export const defaultListPageLayout: PageLayout = {
       links: {
         GitHub: "https://github.com/byheaven",
         X: "https://x.com/byheaven0912",
+        Email: "mailto:byheaven0912@gmail.com",
         RSS: "https://byheaven.net/index.xml",
       },
     }),
@@ -84,6 +87,7 @@ export const defaultListPageLayout: PageLayout = {
         { Component: Component.LanguageSwitcher() },
       ],
     }),
+    Component.RecentNotes({ limit: 5, showTags: true }),
     Component.Explorer(),
   ],
   right: [],

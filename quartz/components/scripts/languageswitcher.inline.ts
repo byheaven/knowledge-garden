@@ -1,29 +1,11 @@
-const LANG_STORAGE_KEY = "quartz-preferred-lang"
+import { getPreferredLanguage, detectBrowserLanguage } from "./util"
 
-// Detect browser language
-function detectBrowserLanguage(): "cn" | "en" {
-  const browserLang = navigator.language || (navigator as any).userLanguage
-  // Check if language code starts with 'zh' (Chinese variants)
-  if (browserLang && browserLang.toLowerCase().startsWith("zh")) {
-    return "cn"
-  }
-  return "en"
-}
+const LANG_STORAGE_KEY = "quartz-preferred-lang"
 
 // Set the language attribute on document root
 const userPrefLang = detectBrowserLanguage()
 const currentLang = localStorage.getItem(LANG_STORAGE_KEY) ?? userPrefLang
 document.documentElement.setAttribute("saved-lang", currentLang)
-
-// Get user's preferred language
-function getPreferredLanguage(): "cn" | "en" {
-  const savedLang = localStorage.getItem(LANG_STORAGE_KEY) as "cn" | "en" | null
-  if (savedLang) {
-    return savedLang
-  }
-  // If no saved preference, detect from browser
-  return detectBrowserLanguage()
-}
 
 // Auto-redirect on root page based on preference or browser language
 function autoRedirectOnRoot() {

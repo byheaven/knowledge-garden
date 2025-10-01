@@ -1,30 +1,9 @@
 import { FileTrieNode } from "../../util/fileTrie"
 import { FullSlug, resolveRelative, simplifySlug } from "../../util/path"
 import { ContentDetails } from "../../plugins/emitters/contentIndex"
+import { getPreferredLanguage } from "./util"
 
 type MaybeHTMLElement = HTMLElement | undefined
-
-const LANG_STORAGE_KEY = "quartz-preferred-lang"
-
-// Detect browser language
-function detectBrowserLanguage(): "cn" | "en" {
-  const browserLang = navigator.language || (navigator as any).userLanguage
-  // Check if language code starts with 'zh' (Chinese variants)
-  if (browserLang && browserLang.toLowerCase().startsWith("zh")) {
-    return "cn"
-  }
-  return "en"
-}
-
-// Get user's preferred language
-function getPreferredLanguage(): "cn" | "en" {
-  const savedLang = localStorage.getItem(LANG_STORAGE_KEY) as "cn" | "en" | null
-  if (savedLang) {
-    return savedLang
-  }
-  // If no saved preference, detect from browser
-  return detectBrowserLanguage()
-}
 
 interface ParsedOptions {
   folderClickBehavior: "collapse" | "link"
@@ -195,7 +174,10 @@ async function setupExplorer(currentSlug: FullSlug) {
 
     // Get folder state from local storage
     const storageTree = localStorage.getItem("fileTree")
-    const serializedExplorerState = storageTree && opts.useSavedState ? JSON.parse(storageTree) : []
+    const serializedExplorerState =
+      storageTree && storageTree !== "undefined" && opts.useSavedState
+        ? JSON.parse(storageTree)
+        : []
     const oldIndex = new Map<string, boolean>(
       serializedExplorerState.map((entry: FolderState) => [entry.path, entry.collapsed]),
     )
@@ -203,6 +185,17 @@ async function setupExplorer(currentSlug: FullSlug) {
     const data = await fetchData
     const entries = [...Object.entries(data)] as [FullSlug, ContentDetails][]
     const trie = FileTrieNode.fromEntries(entries)
+
+    // Apply language filtering FIRST: show only content from cn/ or en/ folders
+    // Use user's preferred language, not current URL path
+    const preferredLang = getPreferredLanguage()
+    const langFolder = trie.children.find(
+      (child) => child.isFolder && child.slugSegment === preferredLang,
+    )
+    if (langFolder) {
+      // Replace root children with language folder's children
+      trie.children = langFolder.children
+    }
 
     // Apply functions in order
     for (const fn of opts.order) {
@@ -217,17 +210,6 @@ async function setupExplorer(currentSlug: FullSlug) {
           if (opts.sortFn) trie.sort(opts.sortFn)
           break
       }
-    }
-
-    // Apply language filtering: show only content from cn/ or en/ folders
-    // Use user's preferred language, not current URL path
-    const preferredLang = getPreferredLanguage()
-    const langFolder = trie.children.find(
-      (child) => child.isFolder && child.slugSegment === preferredLang,
-    )
-    if (langFolder) {
-      // Replace root children with language folder's children
-      trie.children = langFolder.children
     }
 
     // Get folder paths for state management
@@ -303,6 +285,64 @@ async function setupExplorer(currentSlug: FullSlug) {
       window.addCleanup(() => icon.removeEventListener("click", toggleFolder))
     }
   }
+
+  // Function to position Recent Notes based on screen size
+  function positionRecentNotes() {
+    const isMobile = window.matchMedia("(max-width: 800px)").matches
+    const recentNotesOriginal = document.querySelector(".left.sidebar > .recent-notes") as HTMLElement
+
+    if (!recentNotesOriginal) return
+
+    // Clean up ALL existing clones first (both in Explorer and sidebar)
+    const explorerContent = document.querySelector(".explorer-content") as HTMLElement
+    const sidebar = document.querySelector(".left.sidebar") as HTMLElement
+
+    // Remove all clones from explorer content (all .recent-notes inside explorerContent)
+    if (explorerContent) {
+      explorerContent.querySelectorAll(".recent-notes").forEach((el) => el.remove())
+    }
+
+    // Remove all clones from sidebar (anything with .recent-notes-clone class)
+    if (sidebar) {
+      sidebar.querySelectorAll(".recent-notes-clone").forEach((el) => el.remove())
+    }
+
+    // Position based on screen size
+    if (isMobile) {
+      // On mobile: insert clone inside Explorer content (at top)
+      const explorerUl = explorerContent?.querySelector(".explorer-ul") as HTMLElement
+
+      if (explorerContent && explorerUl) {
+        const recentNotesClone = recentNotesOriginal.cloneNode(true) as HTMLElement
+        recentNotesClone.style.display = "block"
+        recentNotesClone.style.marginBottom = "2rem"
+        recentNotesClone.style.borderBottom = "1px solid var(--lightgray)"
+        recentNotesClone.style.paddingBottom = "1rem"
+        explorerContent.insertBefore(recentNotesClone, explorerUl)
+      }
+    } else {
+      // On desktop: insert clone before Explorer in sidebar
+      const explorerElement = document.querySelector(".left.sidebar > .explorer") as HTMLElement
+
+      if (explorerElement && sidebar) {
+        const recentNotesClone = recentNotesOriginal.cloneNode(true) as HTMLElement
+        recentNotesClone.classList.add("recent-notes-clone")
+        recentNotesClone.style.display = "block"
+        recentNotesClone.style.borderTop = "1px solid var(--lightgray)"
+        recentNotesClone.style.paddingTop = "1rem"
+        recentNotesClone.style.marginTop = "1rem"
+        sidebar.insertBefore(recentNotesClone, explorerElement)
+      }
+    }
+  }
+
+  // Initial positioning
+  positionRecentNotes()
+
+  // Reposition on window resize
+  const resizeHandler = () => positionRecentNotes()
+  window.addEventListener("resize", resizeHandler)
+  window.addCleanup(() => window.removeEventListener("resize", resizeHandler))
 
   // Save the updated state (including forced-open folders) to localStorage
   const stringifiedFileTree = JSON.stringify(currentExplorerState)

@@ -1,24 +1,58 @@
+@use "../../styles/variables.scss" as *;
+
 .recent-notes {
   & > h3 {
     margin: 0.5rem 0 0 0;
-    font-size: 1rem;
+    font-size: 0.9rem;
   }
 
   & > ul.recent-ul {
     list-style: none;
-    margin-top: 1rem;
+    margin-top: 0.75rem;
     padding-left: 0;
 
     & > li {
-      margin: 1rem 0;
-      .section > .desc > h3 > a {
-        background-color: transparent;
+      margin: 0.75rem 0;
+
+      .section > .desc > h3 {
+        font-size: 1rem;
+        margin: 0;
+
+        & > a {
+          background-color: transparent;
+        }
       }
 
       .section > .meta {
-        margin: 0 0 0.5rem 0;
+        // Tighter spacing between title and date
+        margin: 0.15rem 0 0.5rem 0;
         opacity: 0.6;
+        font-size: 0.85rem;
+
+        // Ensure date text is also smaller
+        & > * {
+          font-size: 0.85rem;
+        }
+      }
+
+      // Also target p.meta directly
+      & > .section > p.meta,
+      p.meta {
+        font-size: 0.85rem;
+      }
+
+      .tags {
+        margin-top: 0.4rem;
+
+        & > li > a {
+          font-size: 0.8rem;
+          padding: 0.15rem 0.4rem;
+        }
       }
     }
   }
+
+  // Hide the original Recent Notes completely
+  // A clone will be inserted into Explorer content on all devices
+  display: none;
 }

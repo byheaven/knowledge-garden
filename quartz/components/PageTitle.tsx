@@ -15,7 +15,7 @@ const PageTitle: QuartzComponent = ({ fileData, cfg, displayClass }: QuartzCompo
   let homeLink: string
   if (slug.startsWith("cn/") || slug === "cn") {
     // Use absolute path to avoid relative path issues on language homepage
-    homeLink = "/cn/"
+    homeLink = "/cn"
   } else if (slug.startsWith("en/") || slug === "en") {
     // English pages link to root
     homeLink = "/"

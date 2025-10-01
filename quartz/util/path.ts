@@ -169,7 +169,29 @@ export function pathToRoot(slug: FullSlug): RelativeURL {
 }
 
 export function resolveRelative(current: FullSlug, target: FullSlug | SimpleSlug): RelativeURL {
-  const res = joinSegments(pathToRoot(current), simplifySlug(target as FullSlug)) as RelativeURL
+  const simplifiedCurrent = simplifySlug(current as FullSlug)
+  const simplifiedTarget = simplifySlug(target as FullSlug)
+
+  if (simplifiedCurrent === simplifiedTarget) {
+    // Check if this is a folder path (index page)
+    // Single-segment paths without extensions are typically folder pages (e.g., "cn", "en", "")
+    // Multi-segment paths with files are actual content pages (e.g., "en/code")
+    const targetSegments = simplifiedTarget.split("/").filter(x => x !== "")
+    const isFolderLikePath = targetSegments.length <= 1 ||
+                             isFolderPath(target) ||
+                             isFolderPath(current)
+
+    if (isFolderLikePath) {
+      // For folder paths, use "." to reference current directory
+      return "." as RelativeURL
+    } else {
+      // For file paths, use the full relative path to avoid navigation ambiguity
+      const fullPath = joinSegments(pathToRoot(current), simplifiedTarget)
+      return fullPath as RelativeURL
+    }
+  }
+
+  const res = joinSegments(pathToRoot(current), simplifiedTarget) as RelativeURL
   return res
 }
 

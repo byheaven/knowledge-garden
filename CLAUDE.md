@@ -150,3 +150,120 @@ When creating or modifying plugins:
 2. Follow existing plugin patterns
 3. Export from `quartz/plugins/index.ts`
 4. Add to plugin configuration in `quartz.config.ts`
+
+## Multi-language System Architecture
+
+This Quartz site implements a custom multi-language system. Understanding this architecture is **CRITICAL** when developing any component that displays content lists.
+
+### Content Structure
+
+```
+content/
+├── index.md          # English homepage (slug: "" or "index")
+├── cn.md             # Chinese homepage (slug: "cn")
+├── en/               # English content pages
+│   ├── code.md
+│   └── The vision of AMIO.md
+└── cn/               # Chinese content pages
+    ├── AMIO的愿景.md
+    └── 刷机脑图.md
+```
+
+### URL Structure
+
+- `/` - English homepage (index.md)
+- `/cn` - Chinese homepage (cn.md)
+- `/en/*` - English content pages
+- `/cn/*` - Chinese content pages
+
+### Language Preference Storage
+
+Language preference is stored in `localStorage` with key `quartz-preferred-lang`:
+- Value: `"cn"` or `"en"`
+- **Priority**: First check localStorage, if not exists, then detect from browser language
+- Updated only when user manually clicks language switcher button
+
+### Language Switcher Behavior
+
+Located in `quartz/components/scripts/languageswitcher.inline.ts`:
+
+1. **On first visit** (no saved preference):
+   - Detects browser language (`navigator.language`)
+   - If browser language starts with 'zh', sets preference to `"cn"`, otherwise `"en"`
+   - Saves detected language to localStorage
+   - Redirects to corresponding homepage if Chinese
+
+2. **On subsequent visits** (has saved preference):
+   - Reads saved language preference from localStorage
+   - Uses saved preference, ignoring browser language
+   - Sets `saved-lang` attribute on `<html>` element
+   - If on root path (`/`) and preference is Chinese, redirects to `/cn`
+
+3. **On language switch button click**:
+   - Toggles language preference in localStorage
+   - Redirects to corresponding homepage (Chinese → `/cn`, English → `/`)
+   - **Does NOT update preference based on current URL**
+
+### Multi-language Filtering Strategy
+
+**ALL components use client-side filtering based on user preference from localStorage.**
+
+Components filter content based on the user's saved language preference (`localStorage.getItem('quartz-preferred-lang')`), NOT the current page URL.
+
+#### Implementation Pattern
+
+See `quartz/components/scripts/explorer.inline.ts` lines 222-231 for reference:
+
+```typescript
+// Get user's preferred language from localStorage
+const preferredLang = getPreferredLanguage()
+
+// Filter content to show only preferred language
+const langFolder = trie.children.find(
+  (child) => child.isFolder && child.slugSegment === preferredLang
+)
+if (langFolder) {
+  trie.children = langFolder.children
+}
+```
+
+#### Helper Functions
+
+Use these functions from `languageswitcher.inline.ts`:
+
+```typescript
+function detectBrowserLanguage(): "cn" | "en" {
+  const browserLang = navigator.language || (navigator as any).userLanguage
+  if (browserLang && browserLang.toLowerCase().startsWith("zh")) {
+    return "cn"
+  }
+  return "en"
+}
+
+function getPreferredLanguage(): "cn" | "en" {
+  const savedLang = localStorage.getItem(LANG_STORAGE_KEY) as "cn" | "en" | null
+  if (savedLang) {
+    return savedLang
+  }
+  return detectBrowserLanguage()
+}
+```
+
+### Critical Rules for Multi-language Components
+
+1. **ALL filtering is client-side**: Use `localStorage` preference, not current page URL
+2. **Filter on `nav` event**: Re-filter content when user navigates between pages
+3. **Use helper functions**: Always use `getPreferredLanguage()` to get user preference
+4. **Content matching**:
+   - Chinese: `f.slug?.startsWith("cn/") || f.slug === "cn"`
+   - English: `f.slug?.startsWith("en/") || f.slug === "index"`
+
+### Common Pitfalls to Avoid
+
+❌ **Wrong**: Filtering based on current page URL or slug
+❌ **Wrong**: Using CSS hide/show instead of data filtering
+❌ **Wrong**: Assuming all English content is under `/en/` (index.md is at root)
+❌ **Wrong**: Not re-filtering on navigation events
+✅ **Right**: Use `getPreferredLanguage()` from localStorage
+✅ **Right**: Filter at data level in client-side scripts
+✅ **Right**: Re-filter on `nav` event

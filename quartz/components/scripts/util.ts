@@ -44,3 +44,26 @@ export async function fetchCanonical(url: URL): Promise<Response> {
   const [_, redirect] = text.match(canonicalRegex) ?? []
   return redirect ? fetch(`${new URL(redirect, url)}`) : res
 }
+
+// Language utilities
+const LANG_STORAGE_KEY = "quartz-preferred-lang"
+
+// Detect browser language
+export function detectBrowserLanguage(): "cn" | "en" {
+  const browserLang = navigator.language || (navigator as any).userLanguage
+  // Check if language code starts with 'zh' (Chinese variants)
+  if (browserLang && browserLang.toLowerCase().startsWith("zh")) {
+    return "cn"
+  }
+  return "en"
+}
+
+// Get user's preferred language
+export function getPreferredLanguage(): "cn" | "en" {
+  const savedLang = localStorage.getItem(LANG_STORAGE_KEY) as "cn" | "en" | null
+  if (savedLang) {
+    return savedLang
+  }
+  // If no saved preference, detect from browser
+  return detectBrowserLanguage()
+}
