@@ -103,22 +103,25 @@ export default ((opts?: Partial<FolderContentOptions>) => {
     ) as ComponentChildren
 
     const hasCustomContent = (tree as Root).children.length > 0
+    const shouldShowFolderList = fileData.slug !== "cn"
 
     return (
       <div class="popover-hint">
         {hasCustomContent && <article class={classes}>{content}</article>}
-        <div class="page-listing">
-          {options.showFolderCount && (
-            <p>
-              {i18n(cfg.locale).pages.folderContent.itemsUnderFolder({
-                count: allPagesInFolder.length,
-              })}
-            </p>
-          )}
-          <div>
-            <PageList {...listProps} />
+        {shouldShowFolderList && (
+          <div class="page-listing">
+            {options.showFolderCount && (
+              <p>
+                {i18n(cfg.locale).pages.folderContent.itemsUnderFolder({
+                  count: allPagesInFolder.length,
+                })}
+              </p>
+            )}
+            <div>
+              <PageList {...listProps} />
+            </div>
           </div>
-        </div>
+        )}
       </div>
     )
   }

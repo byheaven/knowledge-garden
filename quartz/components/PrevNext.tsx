@@ -12,23 +12,28 @@ export interface Options {
   order: ("filter" | "sort")[]
 }
 
+// Function to create sortFn based on language
+const createSortFn = (lang: "cn" | "en") => (a: FileTrieNode, b: FileTrieNode) => {
+  // Sort order: folders first, then files. Sort folders and files alphabetically
+  if ((!a.isFolder && !b.isFolder) || (a.isFolder && b.isFolder)) {
+    // Use language-specific locale for consistent sorting across server and client
+    const locale = lang === "cn" ? "zh-CN" : "en"
+    return a.displayName.localeCompare(b.displayName, locale, {
+      numeric: true,
+      sensitivity: "base",
+    })
+  }
+
+  if (!a.isFolder && b.isFolder) {
+    return 1
+  } else {
+    return -1
+  }
+}
+
 // Default options (matches Explorer's default sorting)
 const defaultOptions: Options = {
-  sortFn: (a, b) => {
-    // Sort order: folders first, then files. Sort folders and files alphabetically
-    if ((!a.isFolder && !b.isFolder) || (a.isFolder && b.isFolder)) {
-      return a.displayName.localeCompare(b.displayName, undefined, {
-        numeric: true,
-        sensitivity: "base",
-      })
-    }
-
-    if (!a.isFolder && b.isFolder) {
-      return 1
-    } else {
-      return -1
-    }
-  },
+  sortFn: createSortFn("en"), // Default to English
   filterFn: (node) => node.slugSegment !== "tags",
   order: ["filter", "sort"],
 }
@@ -39,15 +44,19 @@ export default ((userOpts?: Partial<Options>) => {
     fileData,
     displayClass,
   }: QuartzComponentProps) => {
-    // Merge user options with defaults
-    const opts = { ...defaultOptions, ...userOpts }
-
     // Determine current language based on slug
     const currentSlug = fileData.slug || ""
     let currentLang: "cn" | "en" = "en"
 
     if (currentSlug === "cn" || currentSlug.startsWith("cn/")) {
       currentLang = "cn"
+    }
+
+    // Merge user options with defaults, using language-specific sortFn
+    const opts = {
+      ...defaultOptions,
+      sortFn: createSortFn(currentLang),
+      ...userOpts
     }
 
     // Build FileTrieNode tree from allFiles (same as Explorer)
