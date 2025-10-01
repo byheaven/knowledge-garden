@@ -256,12 +256,44 @@ a.edit-btn {
   display: none;
 }
 
-// Add spacing before comment section and ensure comments stay at bottom for short articles
+// Flexbox layout for dynamic comment spacing
+.center {
+  display: flex !important;
+  flex-direction: column !important;
+  min-height: 180vh !important; // Ensures comments always start below viewport, requiring scroll
+}
+
+// Configure flex children for proper spacing behavior
+.center > .page-header {
+  flex: 0 0 auto !important;
+
+  // Reduce top spacing on desktop
+  @media all and not ($mobile) {
+    margin-top: 2rem !important;
+  }
+}
+
+.center > article {
+  flex: 0 0 auto !important;
+}
+
+.center > .page-footer {
+  flex: 1 0 auto !important; // Allow footer to grow and fill space
+  display: flex !important;
+  flex-direction: column !important;
+  padding-top: 2rem !important; // Ensures minimum 2rem spacing from content
+
+  // PrevNext and Backlinks should not grow
+  > .prev-next,
+  > .backlinks {
+    flex: 0 0 auto !important;
+  }
+}
+
+// Comment section styling (spacing now handled by flexbox layout)
 .giscus,
 .waline {
-  // Use max() to ensure either 4rem spacing OR enough to push comments to bottom
-  // 100vh (viewport) - 250px (estimated header + nav + footer) = min position for comments
-  margin-top: max(4rem, calc(100vh - 250px)) !important;
+  margin-top: auto !important; // Push comments to bottom of footer container
   padding-top: 2.5rem !important;
   padding-bottom: 4rem !important;
   position: relative;
@@ -277,9 +309,9 @@ a.edit-btn {
     background: linear-gradient(to right, transparent, var(--gray) 20%, var(--gray) 80%, transparent);
   }
 
-  // Desktop: show divider after comments
+  // Desktop: show dotted divider after comments
   @media all and not ($mobile) {
-    border-bottom: 1px solid var(--light) !important;
+    border-bottom: 1px dotted var(--lightgray) !important;
   }
 }
 
@@ -307,7 +339,8 @@ a.edit-btn {
   // Always show comment bottom divider on mobile
   .giscus,
   .waline {
-    border-bottom: 1px solid var(--light) !important;
+    padding-bottom: 2rem !important;  // Reduce bottom spacing on mobile
+    border-bottom: 1px dotted var(--lightgray) !important;
   }
 }
 
