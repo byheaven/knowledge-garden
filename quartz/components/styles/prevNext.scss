@@ -1,0 +1,99 @@
+@use "../../styles/variables.scss" as *;
+
+.prev-next {
+  margin: 1.5rem 0 2rem;
+  padding-top: 1rem;
+  border-top: 1px dotted var(--lightgray);
+}
+
+.prev-next-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 2rem;
+  flex-wrap: wrap;
+
+  @media (max-width: 600px) {
+    flex-direction: column;
+    gap: 1rem;
+  }
+}
+
+.prev-next a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  text-decoration: none;
+  color: var(--gray);
+  transition: color 0.2s ease;
+  border-radius: 4px;
+
+  @media (max-width: 600px) {
+    padding: 0.5rem;
+  }
+
+  &:hover {
+    color: var(--secondary);
+  }
+
+  svg {
+    flex-shrink: 0;
+    width: 16px;
+    height: 16px;
+    opacity: 0.6;
+    transition: opacity 0.2s ease;
+  }
+
+  &:hover svg {
+    opacity: 1;
+  }
+}
+
+.prev-next a.prev {
+  justify-content: flex-start;
+
+  .link-content {
+    text-align: left;
+  }
+}
+
+.prev-next a.next {
+  justify-content: flex-end;
+
+  .link-content {
+    text-align: right;
+  }
+}
+
+.prev-next .link-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  min-width: 0;
+  flex: 1;
+}
+
+.prev-next .link-label {
+  font-size: 0.75rem;
+  color: var(--gray);
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  opacity: 0.7;
+}
+
+.prev-next .link-title {
+  font-size: 0.95rem;
+  color: inherit;
+  font-weight: 400;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
+  @media (max-width: 600px) {
+    white-space: normal;
+    overflow: visible;
+  }
+}
+
+// Spacer no longer needed with inline-flex links

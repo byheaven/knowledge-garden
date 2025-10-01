@@ -6,6 +6,7 @@ export const sharedPageComponents: SharedLayout = {
   head: Component.Head(),
   header: [],
   afterBody: [
+    Component.PrevNext(),
     Component.MobileOnly(Component.Backlinks()),
     Component.ConditionalRender({
       component: Component.Comments({

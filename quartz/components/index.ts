@@ -21,6 +21,7 @@ import DesktopOnly from "./DesktopOnly"
 import MobileOnly from "./MobileOnly"
 import RecentNotes from "./RecentNotes"
 import Breadcrumbs from "./Breadcrumbs"
+import PrevNext from "./PrevNext"
 import Comments from "./Comments"
 import Flex from "./Flex"
 import ConditionalRender from "./ConditionalRender"
@@ -50,6 +51,7 @@ export {
   RecentNotes,
   NotFound,
   Breadcrumbs,
+  PrevNext,
   Comments,
   Flex,
   ConditionalRender,
