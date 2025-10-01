@@ -41,13 +41,44 @@ export default ((userOpts?: Partial<Options>) => {
     cfg,
   }: QuartzComponentProps) => {
     const opts = { ...defaultOptions(cfg), ...userOpts }
-    const pages = allFiles.filter(opts.filter).sort(opts.sort)
-    const remaining = Math.max(0, pages.length - opts.limit)
+
+    // Filter all pages first
+    const allPages = allFiles.filter(opts.filter)
+
+    // Group pages by language BEFORE sorting
+    const pagesByLang: Record<string, QuartzPluginData[]> = {}
+    for (const page of allPages) {
+      const slug = page.slug || ""
+      let lang = "en" // default
+
+      if (slug.startsWith("cn/")) {
+        lang = "cn"
+      } else if (slug.startsWith("en/")) {
+        lang = "en"
+      }
+
+      if (!pagesByLang[lang]) {
+        pagesByLang[lang] = []
+      }
+      pagesByLang[lang].push(page)
+    }
+
+    // Sort each language group and take top N
+    const pages: QuartzPluginData[] = []
+    for (const lang in pagesByLang) {
+      const sortedPages = pagesByLang[lang].sort(opts.sort)
+      pages.push(...sortedPages.slice(0, opts.limit))
+    }
+
+    // Sort merged results by date to maintain chronological order in HTML
+    pages.sort(opts.sort)
+
+    const remaining = Math.max(0, allPages.length - pages.length)
     return (
       <div class={classNames(displayClass, "recent-notes")}>
         <h3>{opts.title ?? i18n(cfg.locale).components.recentNotes.title}</h3>
         <ul class="recent-ul">
-          {pages.slice(0, opts.limit).map((page) => {
+          {pages.map((page) => {
             const title = page.frontmatter?.title ?? i18n(cfg.locale).propertyDefaults.title
             const tags = page.frontmatter?.tags ?? []
 
