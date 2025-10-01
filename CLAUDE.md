@@ -267,3 +267,205 @@ function getPreferredLanguage(): "cn" | "en" {
 ✅ **Right**: Use `getPreferredLanguage()` from localStorage
 ✅ **Right**: Filter at data level in client-side scripts
 ✅ **Right**: Re-filter on `nav` event
+
+## Site Customization History
+
+This section documents all customizations and optimizations made to this Quartz instance.
+
+### Multi-language Support System
+
+**Commits**: `f9374ae`, `d8bc4c0`, `c713c14`, `94b7700`, `f2bc3c4`, `e80b556`
+
+Implemented a comprehensive bilingual (English/Chinese) support system:
+
+- **Language Detection**: Auto-detects browser language on first visit
+- **Persistent Preference**: Stores user's language choice in `localStorage`
+- **Language Switcher Component**: Toggle button for switching between languages
+- **Explorer Filtering**: Shows only content from selected language folder
+- **Preference-based Routing**: Redirects to appropriate homepage based on saved preference
+
+**Key Files**:
+- `quartz/components/LanguageSwitcher.tsx` - UI component
+- `quartz/components/scripts/languageswitcher.inline.ts` - Client-side logic
+- `quartz/components/scripts/explorer.inline.ts` - Language filtering integration
+
+### Search Enhancement for CJK Languages
+
+**Commits**: `82432ee`, `72184f9`, `10ffa2f`, `d12f7a8`
+
+Enhanced search functionality to properly support Chinese, Japanese, and Korean content:
+
+- **Mixed Content Support**: Handles both CJK and non-CJK characters in search queries
+- **Improved Tokenization**: Better word boundary detection for CJK text
+- **Search Highlighting**: Yellow highlight color for better visibility (changed from pink)
+- **CSS Fixes**: Removed conflicting rules that prevented search highlight display
+
+**Modified Files**:
+- `quartz/components/scripts/search.inline.ts` - Search logic improvements
+- `quartz/styles/base.scss` - Highlight color changes
+
+### Recent Notes Component
+
+**Commit**: `5ec8b59`
+
+Added a Recent Notes component with intelligent positioning:
+
+- **Responsive Layout**: Different positioning for desktop vs mobile
+- **Desktop**: Displays between social links and Explorer in left sidebar
+- **Mobile**: Shows inside Explorer content area at the top
+- **Language Filtering**: Only shows notes from current language preference
+- **Configurable Limit**: Defaults to showing 3 most recent notes (changed from 5 in commit `9bf0701`)
+
+**Key Files**:
+- `quartz/components/RecentNotes.tsx` - Component implementation
+- `quartz/components/scripts/explorer.inline.ts` - Dynamic positioning logic
+- `quartz.layout.ts` - Component configuration
+
+### Navigation Components
+
+#### PrevNext Component Enhancement
+
+**Commits**: `5835a43`, `9bf0701`
+
+Redesigned Previous/Next navigation to match Explorer's file ordering:
+
+- **Tree-based Sorting**: Uses `FileTrieNode` structure matching Explorer
+- **Custom Configuration**: Supports user-defined `sortFn`, `filterFn`, and `order`
+- **Folder Page Exclusion**: Automatically skips all `index.md` files
+- **Language-aware**: Filters navigation within current language context
+- **Depth-first Traversal**: Maintains consistent ordering across all folder levels
+
+**Key Files**:
+- `quartz/components/PrevNext.tsx` - Refactored component
+- `quartz/components/styles/prevNext.scss` - Styling with dotted separator
+
+**Configuration Example**:
+```typescript
+Component.PrevNext({
+  sortFn: (a, b) => a.displayName.localeCompare(b.displayName),
+  filterFn: (node) => node.slugSegment !== "tags",
+  order: ["filter", "sort"]
+})
+```
+
+#### Mobile Table of Contents
+
+**Commit**: `b157c4c`
+
+Added mobile-optimized TOC positioning:
+
+- **Responsive Display**: Shows TOC in `beforeBody` section on mobile devices
+- **Typography Optimization**: Improved text rendering for mobile screens
+
+### Folder Page Enhancements
+
+**Commit**: `9bf0701`
+
+Improved folder page (folder index) display:
+
+- **Dual Content Display**: Shows both custom content AND file listing
+  - Previously: either/or behavior (custom content OR file list)
+  - Now: both displayed together
+- **Visual Separator**: Added dotted line separator between content and file list
+- **Consistent Styling**: Matches PrevNext component separator design
+
+**Modified Files**:
+- `quartz/components/pages/FolderContent.tsx` - Logic changes
+- `quartz/components/styles/listPage.scss` - Added `.page-listing` separator styles
+
+### UI/UX Improvements
+
+#### Explorer Scroll Persistence
+
+**Commit**: `9bf0701`
+
+Fixed Explorer sidebar scroll position persistence:
+
+- **Scroll Position Saving**: Stores scroll position on `prenav` event
+- **Position Restoration**: Uses `requestAnimationFrame` for reliable restoration
+- **Timing Fix**: Ensures DOM is fully rendered before applying scroll position
+
+**Modified File**: `quartz/components/scripts/explorer.inline.ts`
+
+#### Typography & Readability
+
+**Commit**: `5ea018a`
+
+Enhanced article readability:
+
+- **Body Font Size**: Increased from default to `1.1rem`
+- **Better Reading Experience**: More comfortable text size for long-form content
+
+**Modified File**: `quartz/styles/base.scss`
+
+### Theme Customizations
+
+#### Baseline Theme Colors
+
+**Commits**: `9bf0701`, `5ea018a`
+
+Applied Obsidian Baseline theme's "Things" color scheme:
+
+**Dark Mode**:
+- Main content background: `rgb(36, 38, 42)` (#24262a)
+- Sidebar background: `rgb(32, 34, 37)` (#202225)
+
+**Light Mode**:
+- Main content background: `white`
+- Sidebar background: `rgb(245, 246, 248)` (#f5f6f8)
+
+**Modified Files**:
+- `quartz/styles/themes/_index.scss` - Main theme file
+- `quartz/styles/themes/publish.css` - Consistency update
+
+#### Favicon Update
+
+**Commit**: `3713c87`
+
+Updated site favicon with custom superhero image (square-cropped).
+
+#### Darkmode Icon Fix
+
+**Commit**: `f9374ae`
+
+Enhanced darkmode toggle icon:
+
+- **Consistent Sizing**: Fixed icon consistency issues
+- **Hover Effect**: Improved hover interaction feedback
+
+### Technical Infrastructure
+
+#### Absolute Path Fix
+
+**Commit**: `e8c3920`
+
+Fixed favicon 404 errors during SPA navigation by using absolute paths.
+
+### Component Export Updates
+
+**Commit**: `9bf0701`
+
+Added missing component exports:
+
+- Exported `PageList` component from `quartz/components/index.ts`
+- Enables proper folder page listing functionality
+
+## Development Guidelines for This Instance
+
+### When Working with Navigation Components
+
+1. **Always use FileTrieNode**: Navigation components (PrevNext, Explorer) use tree-based structure
+2. **Language filtering first**: Apply language filtering before sorting/filtering
+3. **Test with multiple languages**: Verify functionality works for both `cn/` and `en/` content
+
+### When Working with Layouts
+
+1. **Check mobile responsiveness**: Many components have mobile-specific positioning
+2. **Use Chrome DevTools MCP**: Verify layouts programmatically, not just visually
+3. **Maintain visual consistency**: Use existing separator styles for new sections
+
+### When Working with Themes
+
+1. **Reference Baseline theme**: Color choices based on Obsidian Baseline "Things" scheme
+2. **Differentiate backgrounds**: Main content vs sidebar colors are intentionally different
+3. **Test both light/dark modes**: Ensure changes work in both themes
