@@ -38,6 +38,26 @@ export default (() => {
 
     return (
       <head>
+        <script dangerouslySetInnerHTML={{
+          __html: `
+            (function() {
+              const path = window.location.pathname;
+              if (path !== "/" && path !== "") return;
+
+              const LANG_KEY = "quartz-preferred-lang";
+              const savedLang = localStorage.getItem(LANG_KEY);
+
+              if (savedLang) {
+                if (savedLang === "cn") window.location.replace("/cn");
+              } else {
+                const browserLang = navigator.language || navigator.userLanguage;
+                const detectedLang = browserLang && browserLang.toLowerCase().startsWith("zh") ? "cn" : "en";
+                localStorage.setItem(LANG_KEY, detectedLang);
+                if (detectedLang === "cn") window.location.replace("/cn");
+              }
+            })();
+          `
+        }}></script>
         <title>{title}</title>
         <meta charSet="utf-8" />
         {cfg.theme.cdnCaching && cfg.theme.fontOrigin === "googleFonts" && (
