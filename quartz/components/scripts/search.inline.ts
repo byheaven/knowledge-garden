@@ -18,36 +18,52 @@ let searchType: SearchType = "basic"
 let currentSearchTerm: string = ""
 const encoder = (str: string) => {
   const lowerStr = str.toLowerCase()
+  const tokens: string[] = []
 
   // Check if string contains CJK characters (Chinese, Japanese, Korean)
   const hasCJK = /[\u3040-\u309f\u30a0-\u30ff\u4e00-\u9fff\uac00-\ud7af]/.test(lowerStr)
 
-  if (hasCJK) {
-    // For CJK text: split into individual characters and also create bigrams
-    const tokens: string[] = []
-    const chars = Array.from(lowerStr)
-
-    // Add individual characters
-    for (const char of chars) {
-      // Only add CJK characters and alphanumeric characters
-      if (/[\u3040-\u309f\u30a0-\u30ff\u4e00-\u9fff\uac00-\ud7af\w]/.test(char)) {
-        tokens.push(char)
-      }
-    }
-
-    // Add bigrams (2-character combinations) for better matching
-    for (let i = 0; i < chars.length - 1; i++) {
-      const bigram = chars[i] + chars[i + 1]
-      if (/[\u3040-\u309f\u30a0-\u30ff\u4e00-\u9fff\uac00-\ud7af]/.test(bigram)) {
-        tokens.push(bigram)
-      }
-    }
-
-    return tokens.filter((token) => token.length > 0)
-  } else {
-    // For non-CJK text: use whitespace splitting
+  if (!hasCJK) {
+    // Pure non-CJK text: use whitespace splitting
     return lowerStr.split(/\s+/).filter((token) => token.length > 0)
   }
+
+  // Mixed content: segment into CJK and non-CJK parts
+  const cjkRegex = /[\u3040-\u309f\u30a0-\u30ff\u4e00-\u9fff\uac00-\ud7af]+/g
+  let lastIndex = 0
+  let match
+
+  while ((match = cjkRegex.exec(lowerStr)) !== null) {
+    // Process non-CJK text before this CJK segment
+    if (match.index > lastIndex) {
+      const nonCJKText = lowerStr.substring(lastIndex, match.index)
+      const nonCJKTokens = nonCJKText.split(/\s+/).filter((token) => token.length > 0)
+      tokens.push(...nonCJKTokens)
+    }
+
+    // Process CJK segment
+    const cjkText = match[0]
+    const chars = Array.from(cjkText)
+
+    // Add individual CJK characters
+    tokens.push(...chars)
+
+    // Add bigrams for better matching
+    for (let i = 0; i < chars.length - 1; i++) {
+      tokens.push(chars[i] + chars[i + 1])
+    }
+
+    lastIndex = cjkRegex.lastIndex
+  }
+
+  // Process any remaining non-CJK text after the last CJK segment
+  if (lastIndex < lowerStr.length) {
+    const remainingText = lowerStr.substring(lastIndex)
+    const remainingTokens = remainingText.split(/\s+/).filter((token) => token.length > 0)
+    tokens.push(...remainingTokens)
+  }
+
+  return tokens.filter((token) => token.length > 0)
 }
 
 let index = new FlexSearch.Document<Item>({
