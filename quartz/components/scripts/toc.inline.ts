@@ -19,9 +19,9 @@ function toggleToc(this: HTMLElement) {
     "aria-expanded",
     this.getAttribute("aria-expanded") === "true" ? "false" : "true",
   )
-  const content = this.nextElementSibling as HTMLElement | undefined
-  if (!content) return
-  content.classList.toggle("collapsed")
+  const tocOuter = this.nextElementSibling as HTMLElement | undefined
+  if (!tocOuter) return
+  tocOuter.classList.toggle("open")
 }
 
 function setupToc() {
