@@ -87,9 +87,10 @@ export const squareSafeOgImage: SocialImageOptions["imageStructure"] = ({
           )}
           <div
             style={{
-              fontSize: 28,
-              color: colors.gray,
+              fontSize: 36,
+              color: colors.darkgray,
               fontFamily: bodyFont,
+              fontWeight: 500,
               textAlign: "center",
             }}
           >
