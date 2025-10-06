@@ -1,5 +1,6 @@
 import { QuartzConfig } from "./quartz/cfg"
 import * as Plugin from "./quartz/plugins"
+import { squareSafeOgImage } from "./quartz/components/squareSafeOgImage"
 
 /**
  * Quartz 4 Configuration
@@ -88,8 +89,11 @@ const config: QuartzConfig = {
       Plugin.Static(),
       Plugin.Favicon(),
       Plugin.NotFoundPage(),
-      // Comment out CustomOgImages to speed up build time
-      Plugin.CustomOgImages(),
+      // Square-safe OG images optimized for both landscape and square crops
+      Plugin.CustomOgImages({
+        imageStructure: squareSafeOgImage,
+        colorScheme: "darkMode", // Better contrast for social media previews
+      }),
     ],
   },
 }
