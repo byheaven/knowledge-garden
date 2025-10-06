@@ -44,7 +44,7 @@ export const defaultContentPageLayout: PageLayout = {
       links: {
         GitHub: "https://github.com/byheaven",
         X: "https://x.com/byheaven0912",
-        Email: "mailto:byheaven0912@gmail.com",
+        Email: "mailto:mail@byheaven.net",
         RSS: "https://byheaven.net/index.xml",
       },
     }),
@@ -76,7 +76,7 @@ export const defaultListPageLayout: PageLayout = {
       links: {
         GitHub: "https://github.com/byheaven",
         X: "https://x.com/byheaven0912",
-        Email: "mailto:byheaven0912@gmail.com",
+        Email: "mailto:mail@byheaven.net",
         RSS: "https://byheaven.net/index.xml",
       },
     }),
