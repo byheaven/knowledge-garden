@@ -1,0 +1,91 @@
+// BYHEAVEN theme palette — ported verbatim from the v4 fork's
+// quartz/styles/themes/_index.scss (the "Baseline" theme by Alexis C, frozen at
+// export time). The `:root:root` double-root selector + `!important` deliberately
+// out-specifies and overrides the Quartz config-generated `:root` color variables
+// so the Apple-system purple/green palette is the effective theme, exactly as on
+// the v4 live site.
+//
+// v5 compatibility: Quartz v5's darkmode plugin still toggles the
+// `saved-theme="dark"` attribute on <html> (verified against
+// .quartz/plugins/darkmode), so the dark-mode selector ports unchanged.
+
+:root:root {
+  --light: #ffffff !important;
+  --gray: #5c5c5c !important;
+  --darkgray: #5c5c5c !important;
+  --highlight: #ffcc00 !important;
+  --secondary: #8a5cf5 !important;
+  --tertiary: #28cd41 !important;
+  --lightgray: #ababab !important;
+  --dark: #363636 !important;
+
+  --code-background: #fafafa !important;
+  --code-comment: #ababab !important;
+  --code-function: #ff9500 !important;
+  --code-important: #ff9500 !important;
+  --code-keyword: #ff3b30 !important;
+  --code-normal: #5c5c5c !important;
+  --code-operator: #ff3b30 !important;
+  --code-property: #007aff !important;
+  --code-punctuation: #5c5c5c !important;
+  --code-string: #55bef0 !important;
+  --code-tag: #ff3b30 !important;
+  --code-value: #af52de !important;
+}
+
+:root:root[saved-theme="dark"] {
+  --light: #24262a !important;
+  --gray: #b3b3b3 !important;
+  --darkgray: #b3b3b3 !important;
+  --highlight: #ffd60a !important;
+  --secondary: #a68af9 !important;
+  --tertiary: #32d74b !important;
+  --lightgray: #666666 !important;
+  --dark: #cdcdcd !important;
+
+  --code-background: #242424 !important;
+  --code-comment: #666666 !important;
+  --code-function: #ff9f0a !important;
+  --code-important: #ff9f0a !important;
+  --code-keyword: #ff453a !important;
+  --code-normal: #b3b3b3 !important;
+  --code-operator: #ff453a !important;
+  --code-property: #0a84ff !important;
+  --code-punctuation: #b3b3b3 !important;
+  --code-string: #5ac8f5 !important;
+  --code-tag: #ff453a !important;
+  --code-value: #bf5af2 !important;
+}
+
+html {
+  &[saved-theme="light"] {
+    color-scheme: light;
+    .callout[data-callout] {
+      mix-blend-mode: darken;
+    }
+  }
+  &[saved-theme="dark"] {
+    color-scheme: dark;
+    .callout[data-callout] {
+      mix-blend-mode: lighten;
+    }
+  }
+}
+
+// Reader-mode dimming (v5 ships a reader-mode plugin that toggles
+// reader-mode="on" on :root; the sidebar selectors are unchanged from v4).
+:root[reader-mode="on"] {
+  body[data-slug] {
+    .sidebar.left,
+    .sidebar.right {
+      opacity: 1 !important;
+      & > * {
+        opacity: 0 !important;
+        transition: opacity 0.2s;
+      }
+      &:hover > * {
+        opacity: 1 !important;
+      }
+    }
+  }
+}

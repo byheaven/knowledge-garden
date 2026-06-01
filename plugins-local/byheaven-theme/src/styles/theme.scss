@@ -1,0 +1,9 @@
+// BYHEAVEN theme entry — forwards the three ported partials in cascade order:
+//   1. palette: color variables + theme/reader-mode blocks
+//   2. callouts: Baseline Apple-system callout colors
+//   3. custom: fork-specific layout / spacing / font-override tweaks
+// Compiled to a CSS string at plugin-build time by the tsup scss-text-loader and
+// emitted as an inline CSSResource from src/index.ts.
+@use "./palette";
+@use "./callouts";
+@use "./custom";

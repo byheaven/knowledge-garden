@@ -290,6 +290,14 @@ plugins:
   - source: ./plugins-local/byheaven-bilingual-head
     enabled: true
     order: 1
+  # BYHEAVEN visual theme (transformer, runs once): emits the ported v4 theme
+  # stylesheet inline (Apple-system purple/green palette + Baseline callout colors
+  # + fork-specific layout/spacing/font-override tweaks) plus the LXGW WenKai GB +
+  # Fira Code web-font <link>s. Mirrors the v4 fork's themes/_index.scss +
+  # custom.scss + Head.tsx font injection.
+  - source: ./plugins-local/byheaven-theme
+    enabled: true
+    order: 2
   # Component plugin: ships LanguageSwitcher + PrevNext. Each component is placed
   # via its own source.name entry so the YAML layout resolver addresses it by
   # its registered component name (both entries link the same local package; the
@@ -310,6 +318,21 @@ plugins:
       position: afterBody
       priority: 20
       condition: not-index
+  # Socials icon row in the left sidebar, directly under PageTitle (priority 10),
+  # matching the v4 fork's left-sidebar ordering. Links mirror v4 quartz.layout.ts.
+  - source:
+      name: Socials
+      repo: ./plugins-local/byheaven-bilingual
+    enabled: true
+    options:
+      links:
+        GitHub: https://github.com/byheaven
+        X: https://x.com/byheaven0912
+        Email: mailto:mail@byheaven.net
+        RSS: https://byheaven.net/index.xml
+    layout:
+      position: left
+      priority: 12
 layout:
   groups:
     toolbar:

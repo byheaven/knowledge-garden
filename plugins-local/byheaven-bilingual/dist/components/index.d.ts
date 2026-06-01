@@ -4,4 +4,9 @@ declare const LanguageSwitcher: QuartzComponentConstructor;
 
 declare const PrevNext: QuartzComponentConstructor;
 
-export { LanguageSwitcher, PrevNext };
+interface Options {
+    links: Record<string, string>;
+}
+declare const Socials: QuartzComponentConstructor<Options>;
+
+export { LanguageSwitcher, PrevNext, Socials };

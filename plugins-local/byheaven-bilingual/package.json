@@ -43,6 +43,11 @@
         "displayName": "Previous / Next",
         "defaultPosition": "afterBody",
         "defaultPriority": 20
+      },
+      "Socials": {
+        "displayName": "Socials",
+        "defaultPosition": "left",
+        "defaultPriority": 12
       }
     }
   },

@@ -1,0 +1,41 @@
+{
+  "name": "byheaven-theme",
+  "version": "1.0.0",
+  "description": "BYHEAVEN visual theme: ports the v4 fork's custom theme palette (Apple-system purple/green, light + dark), the fork-specific layout / spacing / font-override stylesheet, and the LXGW WenKai GB + Fira Code CDN font injection into Quartz v5 via a single CSS-emitting transformer.",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "scripts": {
+    "build": "tsup"
+  },
+  "quartz": {
+    "name": "byheaven-theme",
+    "displayName": "BYHEAVEN Theme",
+    "category": [
+      "transformer"
+    ],
+    "version": "1.0.0",
+    "quartzVersion": ">=5.0.0",
+    "dependencies": [],
+    "defaultOrder": 2,
+    "defaultEnabled": true,
+    "defaultOptions": {}
+  },
+  "dependencies": {
+    "@quartz-community/types": "github:quartz-community/types"
+  },
+  "devDependencies": {
+    "esbuild": "^0.24.0",
+    "sass": "^1.80.0",
+    "tsup": "^8.0.0",
+    "typescript": "^5.0.0"
+  }
+}
