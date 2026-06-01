@@ -1,0 +1,52 @@
+.language-switcher {
+  cursor: pointer;
+  padding: 0;
+  position: relative;
+  background: none;
+  border: none;
+  width: 24px;
+  height: 24px;
+  margin: 0;
+  text-align: inherit;
+  flex-shrink: 0;
+
+  & span {
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--darkgray);
+    transition: all 0.2s ease;
+  }
+}
+
+body button.language-switcher:hover span {
+  color: var(--secondary);
+  transform: scale(1.1);
+}
+
+/* Show Chinese glyph when current language is Chinese */
+:root[saved-lang="cn"] .language-switcher {
+  & > .enIcon {
+    display: none;
+  }
+  & > .cnIcon {
+    display: flex;
+  }
+}
+
+/* Show English glyph when current language is English (default) */
+:root .language-switcher {
+  & > .enIcon {
+    display: flex;
+  }
+  & > .cnIcon {
+    display: none;
+  }
+}

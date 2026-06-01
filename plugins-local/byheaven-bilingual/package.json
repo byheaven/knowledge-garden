@@ -1,0 +1,62 @@
+{
+  "name": "byheaven-bilingual",
+  "version": "1.0.0",
+  "description": "BYHEAVEN cn/en bilingual system: language detection/redirect/persistence, language switcher, same-language prev/next navigation, and language-aware client filtering for Explorer and Recent Notes.",
+  "type": "module",
+  "license": "MIT",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./components": {
+      "types": "./dist/components/index.d.ts",
+      "import": "./dist/components/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "scripts": {
+    "build": "tsup"
+  },
+  "quartz": {
+    "name": "byheaven-bilingual",
+    "displayName": "BYHEAVEN Bilingual",
+    "category": [
+      "component"
+    ],
+    "version": "1.0.0",
+    "quartzVersion": ">=5.0.0",
+    "dependencies": [],
+    "defaultOrder": 100,
+    "defaultEnabled": true,
+    "defaultOptions": {},
+    "components": {
+      "LanguageSwitcher": {
+        "displayName": "Language Switcher",
+        "defaultPosition": "left",
+        "defaultPriority": 32
+      },
+      "PrevNext": {
+        "displayName": "Previous / Next",
+        "defaultPosition": "afterBody",
+        "defaultPriority": 20
+      }
+    }
+  },
+  "dependencies": {
+    "@quartz-community/types": "github:quartz-community/types",
+    "@quartz-community/utils": "github:quartz-community/utils"
+  },
+  "peerDependencies": {
+    "preact": "^10.0.0"
+  },
+  "devDependencies": {
+    "esbuild": "^0.24.0",
+    "sass": "^1.80.0",
+    "tsup": "^8.0.0",
+    "typescript": "^5.0.0"
+  }
+}

@@ -278,6 +278,33 @@ plugins:
       darkMode: auto
       exportPadding: 20
     order: 50
+  # BYHEAVEN cn/en bilingual system (local plugins).
+  # Head transformer (runs once): injects the <head> language-redirect script
+  # (beforeDOMReady) plus the language-state / recent-notes client script
+  # (afterDOMReady).
+  - source: ./plugins-local/byheaven-bilingual-head
+    enabled: true
+    order: 1
+  # Component plugin: ships LanguageSwitcher + PrevNext. Each component is placed
+  # via its own source.name entry so the YAML layout resolver addresses it by
+  # its registered component name (both entries link the same local package; the
+  # component registry de-duplicates instances and their scripts).
+  - source:
+      name: LanguageSwitcher
+      repo: ./plugins-local/byheaven-bilingual
+    enabled: true
+    layout:
+      position: left
+      priority: 32
+      group: toolbar
+  - source:
+      name: PrevNext
+      repo: ./plugins-local/byheaven-bilingual
+    enabled: true
+    layout:
+      position: afterBody
+      priority: 20
+      condition: not-index
 layout:
   groups:
     toolbar:

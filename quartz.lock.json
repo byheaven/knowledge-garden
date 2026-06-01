@@ -1,6 +1,24 @@
 {
   "version": "1.0.0",
   "plugins": {
+    "LanguageSwitcher": {
+      "source": {
+        "name": "LanguageSwitcher",
+        "repo": "./plugins-local/byheaven-bilingual"
+      },
+      "resolved": "/Users/yubai/quartz/plugins-local/byheaven-bilingual",
+      "commit": "local",
+      "installedAt": "2026-06-01T17:49:51.191Z"
+    },
+    "PrevNext": {
+      "source": {
+        "name": "PrevNext",
+        "repo": "./plugins-local/byheaven-bilingual"
+      },
+      "resolved": "/Users/yubai/quartz/plugins-local/byheaven-bilingual",
+      "commit": "local",
+      "installedAt": "2026-06-01T17:49:51.192Z"
+    },
     "alias-redirects": {
       "source": "github:quartz-community/alias-redirects",
       "resolved": "https://github.com/quartz-community/alias-redirects.git",
@@ -30,6 +48,12 @@
       "resolved": "https://github.com/quartz-community/breadcrumbs.git",
       "commit": "2f7ec9a7ef80ad5128d18205548f1132a2cf150a",
       "installedAt": "2026-06-01T17:27:11.878Z"
+    },
+    "byheaven-bilingual-head": {
+      "source": "./plugins-local/byheaven-bilingual-head",
+      "resolved": "/Users/yubai/quartz/plugins-local/byheaven-bilingual-head",
+      "commit": "local",
+      "installedAt": "2026-06-01T17:52:59.959Z"
     },
     "canvas-page": {
       "source": "github:quartz-community/canvas-page",
