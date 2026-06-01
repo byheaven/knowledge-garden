@@ -161,7 +161,12 @@ plugins:
     layout:
       position: right
       priority: 10
-  - source: github:quartz-community/search
+  # BYHEAVEN fork of quartz-community/search: adds CJK single-char +
+  # adjacent-bigram tokenization so Chinese full-text search matches at
+  # single-char and two-char-word granularity with precision (no false
+  # positives from non-adjacent constituent characters). The upstream encoder
+  # is char-only, which keeps recall but over-matches multi-char CJK queries.
+  - source: ./plugins-local/byheaven-search
     enabled: true
     layout:
       position: left
