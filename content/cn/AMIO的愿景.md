@@ -1,5 +1,5 @@
 ---
-{"publish":true,"created":"2025-09-30T17:23:49.551+08:00","modified":"2025-09-30T23:25:51.455+08:00","cssclasses":""}
+{"publish":true,"oldUrls":["cn/AMIO的愿景"],"created":"2025-09-30T17:23:49.551+08:00","modified":"2025-09-30T23:25:51.455+08:00","cssclasses":""}
 ---
 
 

@@ -1,0 +1,59 @@
+{
+  "name": "byheaven-comments",
+  "version": "1.0.0",
+  "description": "BYHEAVEN Waline comments + pageview counter. Ships a Comments component (the .waline mount point) plus a client script that lazy-loads @waline/client, follows the bilingual preferred-language (zh-CN / en) and dark-mode state, and counts pageviews.",
+  "type": "module",
+  "license": "MIT",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./components": {
+      "types": "./dist/components/index.d.ts",
+      "import": "./dist/components/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "scripts": {
+    "build": "tsup"
+  },
+  "quartz": {
+    "name": "byheaven-comments",
+    "displayName": "BYHEAVEN Comments",
+    "category": [
+      "component"
+    ],
+    "version": "1.0.0",
+    "quartzVersion": ">=5.0.0",
+    "dependencies": [],
+    "defaultOrder": 100,
+    "defaultEnabled": true,
+    "defaultOptions": {
+      "serverURL": ""
+    },
+    "components": {
+      "Comments": {
+        "displayName": "Comments",
+        "defaultPosition": "afterBody",
+        "defaultPriority": 10
+      }
+    }
+  },
+  "dependencies": {
+    "@quartz-community/types": "github:quartz-community/types",
+    "@quartz-community/utils": "github:quartz-community/utils"
+  },
+  "peerDependencies": {
+    "preact": "^10.0.0"
+  },
+  "devDependencies": {
+    "esbuild": "^0.24.0",
+    "sass": "^1.80.0",
+    "tsup": "^8.0.0",
+    "typescript": "^5.0.0"
+  }
+}

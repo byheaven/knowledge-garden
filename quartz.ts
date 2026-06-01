@@ -1,5 +1,7 @@
 import { loadQuartzConfig, loadQuartzLayout } from "./quartz/plugins/loader/config-loader"
-import { Explorer, RecentNotes } from "./.quartz/plugins"
+import { Explorer, RecentNotes, CustomOgImages } from "./.quartz/plugins"
+import { squareSafeOgImage } from "./og-image"
+import { byheavenRedirects } from "./redirects"
 
 // --- BYHEAVEN bilingual override callbacks -----------------------------------
 // These must be registered BEFORE loadQuartzConfig() so the option overrides are
@@ -42,8 +44,23 @@ RecentNotes({
     return slug !== "cn" && slug !== "en" && slug !== "index" && slug !== ""
   },
 })
+
+// Custom OG image: replace the default og-image `imageStructure` with the
+// ported v4 square-safe satori component. The function stays in-process
+// (server-side emitter), so passing a JSX-returning closure is safe.
+CustomOgImages({
+  imageStructure: squareSafeOgImage,
+})
 // -----------------------------------------------------------------------------
 
 const config = await loadQuartzConfig()
+
+// Case-preserving URL redirects: the official alias-redirects plugin lowercases
+// alias slugs (via note-properties' slugify), which collapses a case-only alias
+// onto the article's own slug. Inject a dedicated emitter that honors `oldUrls`
+// frontmatter verbatim so the v4 mixed-case URLs keep resolving after v5's
+// slug-lowercasing. See redirects.ts for the rationale.
+config.plugins.emitters.push(byheavenRedirects())
+
 export default config
 export const layout = await loadQuartzLayout()

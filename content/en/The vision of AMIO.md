@@ -1,5 +1,5 @@
 ---
-{"publish":true,"created":"2025-09-30T17:23:49.551+08:00","modified":"2025-09-30T23:25:16.613+08:00","cssclasses":""}
+{"publish":true,"oldUrls":["en/The-vision-of-AMIO"],"created":"2025-09-30T17:23:49.551+08:00","modified":"2025-09-30T23:25:16.613+08:00","cssclasses":""}
 ---
 
 
