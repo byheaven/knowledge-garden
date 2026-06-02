@@ -113,10 +113,26 @@ function langOf(slug2) {
 }
 function makeComparator(lang) {
   const locale = lang === "cn" ? "zh-CN" : "en";
+  const collate = (x2, y2) => x2.localeCompare(y2, locale, { numeric: true, sensitivity: "base" });
+  const segmentsOf = (slug2) => slug2.split("/").slice(1);
   return (a2, b2) => {
-    const an = a2.frontmatter?.title ?? a2.slug ?? "";
-    const bn = b2.frontmatter?.title ?? b2.slug ?? "";
-    return an.localeCompare(bn, locale, { numeric: true, sensitivity: "base" });
+    const aSeg = segmentsOf(a2.slug);
+    const bSeg = segmentsOf(b2.slug);
+    const aTitle = a2.frontmatter?.title ?? a2.slug ?? "";
+    const bTitle = b2.frontmatter?.title ?? b2.slug ?? "";
+    const minLen = Math.min(aSeg.length, bSeg.length);
+    for (let i2 = 0; i2 < minLen; i2++) {
+      const aIsLeaf = i2 === aSeg.length - 1;
+      const bIsLeaf = i2 === bSeg.length - 1;
+      if (aIsLeaf !== bIsLeaf) {
+        return aIsLeaf ? 1 : -1;
+      }
+      const aName = aIsLeaf ? aTitle : aSeg[i2];
+      const bName = bIsLeaf ? bTitle : bSeg[i2];
+      const cmp = collate(aName, bName);
+      if (cmp !== 0) return cmp;
+    }
+    return aSeg.length - bSeg.length;
   };
 }
 function isContentPage(slug2) {

@@ -415,6 +415,45 @@ body button.darkmode:hover svg {
   fill: var(--secondary);
 }
 
+// Table of Contents collapse animation — ported from the v4 fork's toc.scss.
+//
+// v4 wrapped the list in a `.toc-outer` grid div and animated its
+// grid-template-rows between 0fr (collapsed) and 1fr (open) for a smooth fold.
+// v5's official TOC has no wrapper: the toggle script adds/removes the
+// `collapsed` class directly on the `ul.toc-content` element (and on the
+// `.toc-header` button). Out of the box that class only rotates the fold arrow;
+// the list itself snaps with no transition. We restore the v4 grid-template-rows
+// animation by making `ul.toc-content` the grid container itself.
+//
+// The grid trick needs a single collapsing track, so the whole list is placed
+// in one row (`grid-template-rows: 1fr` open, `0fr` collapsed). The `<li>`
+// children get `min-height: 0; overflow: hidden` so they clip smoothly as the
+// track shrinks to zero. `grid-auto-rows: 0fr` keeps every auto-placed row tied
+// to the same collapse, so multi-entry TOCs fold as one block rather than
+// leaving the first entry visible.
+.toc ul.toc-content.overflow {
+  display: grid !important;
+  grid-template-rows: 1fr;
+  grid-auto-rows: 0fr;
+  // Match the v4 timing/easing so the fold feels identical.
+  transition:
+    grid-template-rows 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+    margin 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+
+  & > li {
+    min-height: 0;
+    overflow: hidden;
+  }
+
+  // Collapsed state set by the official toc.inline.ts toggle.
+  &.collapsed {
+    grid-template-rows: 0fr;
+    grid-auto-rows: 0fr;
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+}
+
 // Hide Waline "powered by" footer — v4 fork deliberately removed it.
 .wl-power { display: none !important; }
 // Comment section top divider, matching v4 fork.

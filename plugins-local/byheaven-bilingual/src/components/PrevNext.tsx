@@ -19,16 +19,61 @@ function langOf(slug: string): Lang | null {
 }
 
 /**
- * Order pages within one language the way the v4 trie did: alphabetically by
- * display title, using a locale matching the language so cn/en sort
- * consistently between server render and any client comparison.
+ * Order pages within one language the way the v4 trie did: a folder-first,
+ * depth-first walk of the file tree. v4 built a FileTrieNode from every slug,
+ * extracted the cn/ or en/ subtree, then sorted each node's children with
+ * "folders before files, each group by displayName.localeCompare". A
+ * depth-first `entries()` traversal of that sorted trie produced the linear
+ * page order. We reproduce the same order without the trie by comparing the
+ * path segments of two pages directly.
+ *
+ * Segments are the slug minus the leading language folder, e.g. cn/guides/intro
+ * -> ["guides", "intro"]. Walking segment by segment, the first index where two
+ * pages diverge decides their order:
+ *   - if one page still has deeper segments there (it lives inside a subfolder
+ *     at this level) while the other ends (it is a file at this level), the
+ *     folder side sorts first — matching v4's "folders before files";
+ *   - otherwise the two segments are compared by displayName via localeCompare.
+ * The displayName of an intermediate (folder) segment is the segment text, and
+ * the displayName of the final (file) segment is the page title, mirroring v4's
+ * FileTrieNode.displayName (title when present, else the slug segment).
  */
 function makeComparator(lang: Lang) {
   const locale = lang === "cn" ? "zh-CN" : "en"
+  const collate = (x: string, y: string) =>
+    x.localeCompare(y, locale, { numeric: true, sensitivity: "base" })
+
+  // Path segments of a page relative to its language root.
+  const segmentsOf = (slug: string) => slug.split("/").slice(1)
+
   return (a: QuartzPluginData, b: QuartzPluginData) => {
-    const an = (a.frontmatter?.title ?? a.slug ?? "") as string
-    const bn = (b.frontmatter?.title ?? b.slug ?? "") as string
-    return an.localeCompare(bn, locale, { numeric: true, sensitivity: "base" })
+    const aSeg = segmentsOf(a.slug as string)
+    const bSeg = segmentsOf(b.slug as string)
+    const aTitle = (a.frontmatter?.title ?? a.slug ?? "") as string
+    const bTitle = (b.frontmatter?.title ?? b.slug ?? "") as string
+
+    const minLen = Math.min(aSeg.length, bSeg.length)
+    for (let i = 0; i < minLen; i++) {
+      const aIsLeaf = i === aSeg.length - 1
+      const bIsLeaf = i === bSeg.length - 1
+
+      // At this level one is a folder (more segments follow) and the other is a
+      // file: the folder wins, just like v4's sort put folders before files.
+      if (aIsLeaf !== bIsLeaf) {
+        return aIsLeaf ? 1 : -1
+      }
+
+      // Same kind at this level. Compare by displayName: page title at the leaf,
+      // otherwise the folder segment text.
+      const aName = aIsLeaf ? aTitle : aSeg[i]
+      const bName = bIsLeaf ? bTitle : bSeg[i]
+      const cmp = collate(aName, bName)
+      if (cmp !== 0) return cmp
+    }
+
+    // One path is a prefix of the other (shouldn't happen between two distinct
+    // content pages, but keep it total): the shorter one sorts first.
+    return aSeg.length - bSeg.length
   }
 }
 
