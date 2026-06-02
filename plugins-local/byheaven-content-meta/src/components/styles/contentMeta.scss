@@ -1,0 +1,33 @@
+.content-meta {
+  margin-top: 0;
+  color: var(--darkgray);
+
+  // Ported from the v4 fork's contentMeta.scss: dim the date / reading-time /
+  // pageview segments but keep the edit + history buttons at full opacity.
+  > span:not(#edit-btn-container),
+  > time {
+    opacity: 0.5;
+  }
+
+  &[show-comma="true"] {
+    > *:not(:last-child) {
+      margin-right: 8px;
+
+      &::after {
+        content: ",";
+      }
+    }
+  }
+
+  .edit-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+
+    svg {
+      flex-shrink: 0;
+      width: 16px;
+      height: 16px;
+    }
+  }
+}

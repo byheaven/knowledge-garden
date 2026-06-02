@@ -158,7 +158,11 @@
 }
 
 .search > .search-container > .search-space > .search-layout .highlight {
-  background: color-mix(in srgb, var(--tertiary) 60%, rgba(255, 255, 255, 0));
+  // Restored to the v4 fork's yellow search highlight (the v5 rewrite changed it
+  // to var(--tertiary) green). Matches v4 search.scss exactly. NOTE: this is the
+  // search-result highlight only; the article body `==mark==` textHighlight
+  // (also yellow, set via theme `textHighlight`) is a separate, correct rule.
+  background: color-mix(in srgb, #ffeb3b 70%, transparent);
   border-radius: 5px;
   scroll-margin-top: 2rem;
 }

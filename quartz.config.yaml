@@ -84,6 +84,16 @@ plugins:
       position: right
       priority: 30
       display: desktop-only
+  # Second TOC instance for mobile: the desktop instance above lives in the
+  # right sidebar (hidden on mobile), so without this the article body has no
+  # table of contents on phones. Placed beforeBody so it renders above the
+  # article on narrow screens, matching the v4 fork's Mobile+Desktop dual-TOC.
+  - source: github:quartz-community/table-of-contents
+    enabled: true
+    layout:
+      position: beforeBody
+      priority: 40
+      display: mobile-only
   - source: github:quartz-community/crawl-links
     enabled: true
     options:
@@ -180,13 +190,34 @@ plugins:
       position: right
       priority: 50
       display: desktop-only
+  # Second backlinks instance for mobile: the desktop instance above lives in the
+  # right sidebar (hidden on mobile), so without this phones show no backlinks.
+  # Placed afterBody so it renders below the article on narrow screens, matching
+  # the v4 fork's Mobile+Desktop dual-backlinks. The byheaven-theme mobile divider
+  # rule (.mobile-only .backlinks) decorates it.
+  - source: github:quartz-community/backlinks
+    enabled: true
+    layout:
+      position: afterBody
+      priority: 15
+      display: mobile-only
   - source: github:quartz-community/article-title
     enabled: true
     layout:
       position: beforeBody
       priority: 10
-  - source: github:quartz-community/content-meta
+  # BYHEAVEN fork of quartz-community/content-meta: restores the v4 fork's
+  # "Edit page" (GitHub edit link) + "View history" (githistory.xyz link) and the
+  # Waline pageview counter (eye icon + .waline-pageview-count span), which the
+  # official content-meta drops. `branch: v5` makes the edit/history links point
+  # at this migration's deployment branch (v4 used v4).
+  - source:
+      name: ContentMeta
+      repo: ./plugins-local/byheaven-content-meta
     enabled: true
+    options:
+      repo: byheaven/knowledge-garden
+      branch: v5
     layout:
       position: beforeBody
       priority: 20
@@ -206,8 +237,11 @@ plugins:
       position: left
       priority: 30
       group: toolbar
+  # Disabled to align with v4: v4 removed reader-mode (commit ca642f2 replaced it
+  # with the LanguageSwitcher in the toolbar). The byPageType `exclude: [reader-mode]`
+  # entries below are now no-ops but kept harmless.
   - source: github:quartz-community/reader-mode
-    enabled: true
+    enabled: false
     layout:
       position: left
       priority: 35
@@ -281,14 +315,14 @@ plugins:
         - tags
         - aliases
       excludedProperties: []
-      hidePropertiesView: false
+      hidePropertiesView: true
       delimiters: ---
       language: yaml
     order: 5
-    layout:
-      position: beforeBody
-      priority: 15
-      display: all
+    # Layout block removed to align with v4 (which had no frontmatter property
+    # table at the top of articles). The plugin stays enabled as a transformer so
+    # its alias/slug processing keeps working; `hidePropertiesView: true` and the
+    # absent layout mean no visible property block renders.
   - source:
       name: quartz-themes
       repo: github:saberzero1/quartz-themes

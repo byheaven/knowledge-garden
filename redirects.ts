@@ -1,5 +1,6 @@
 import path from "node:path"
 import fs from "node:fs/promises"
+import os from "node:os"
 import type {
   QuartzEmitterPluginInstance,
   BuildCtx,
@@ -28,6 +29,35 @@ import type { VFile } from "vfile"
 // `.html`), e.g. `cn/AMIO的愿景`.
 
 const REDIRECTS_EMITTER_NAME = "ByheavenRedirects"
+
+// Detect whether the build host's filesystem is case-insensitive (macOS default
+// APFS/HFS+) vs case-sensitive (Linux / production). On a case-insensitive FS, a
+// redirect stub written at a path that differs from the real article only by
+// case (e.g. `cn/AMIO的愿景.html` vs the lowercased real page `cn/amio的愿景.html`)
+// collides with — and overwrites — the real article, so local preview can't open
+// it. We detect this once and skip emitting pure-case-difference stubs locally.
+// Production (case-sensitive) is unaffected: the stub and the real page are
+// distinct files, so the stub keeps the v4 mixed-case URLs resolving.
+let caseInsensitiveFsCache: boolean | null = null
+
+async function isCaseInsensitiveFs(): Promise<boolean> {
+  if (caseInsensitiveFsCache !== null) return caseInsensitiveFsCache
+  const dir = await fs.mkdtemp(path.join(os.tmpdir(), "byheaven-fscase-"))
+  const lower = path.join(dir, "casetest")
+  const upper = path.join(dir, "CASETEST")
+  try {
+    await fs.writeFile(lower, "")
+    // On a case-insensitive FS, stat-ing the upper-case name resolves to the
+    // same inode we just created; on a case-sensitive FS it throws ENOENT.
+    const [a, b] = await Promise.all([fs.stat(lower), fs.stat(upper)])
+    caseInsensitiveFsCache = a.ino === b.ino
+  } catch {
+    caseInsensitiveFsCache = false
+  } finally {
+    await fs.rm(dir, { recursive: true, force: true })
+  }
+  return caseInsensitiveFsCache
+}
 
 async function write(
   ctx: BuildCtx,
@@ -66,13 +96,20 @@ async function* processFile(ctx: BuildCtx, file: VFile): AsyncGenerator<FilePath
   if (!Array.isArray(oldUrls)) return
 
   const ogSlug = simplifySlug(data.slug as FullSlug)
+  const newSlug = data.slug as string
+  const caseInsensitive = await isCaseInsensitiveFs()
 
   for (const raw of oldUrls) {
     if (typeof raw !== "string" || raw.length === 0) continue
     // Use the path verbatim (case preserved); only strip a leading slash.
     const oldSlug = raw.replace(/^\/+/, "") as FullSlug
     // Skip if the old path already equals the new slug (nothing to redirect).
-    if (oldSlug === (data.slug as string)) continue
+    if (oldSlug === newSlug) continue
+    // On a case-insensitive FS (local macOS preview), skip stubs that differ
+    // from the real article only by case — writing them would overwrite the
+    // real `.html`. Production (case-sensitive) still emits the stub so the v4
+    // mixed-case URLs keep redirecting.
+    if (caseInsensitive && oldSlug.toLowerCase() === newSlug.toLowerCase()) continue
     const redirUrl = resolveRelative(oldSlug, ogSlug)
     yield write(ctx, oldSlug, ".html", redirectHtml(ogSlug, redirUrl))
   }

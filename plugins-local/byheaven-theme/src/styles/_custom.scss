@@ -344,22 +344,29 @@ a.edit-btn {
 }
 
 // Mobile: dotted divider above Backlinks (only shows if backlinks exist).
+// NOTE: v5's MobileOnly wrapper renders `<div class="mobile-only"><div
+// class="toc">...`, so the component class (.toc / .backlinks) is a DESCENDANT
+// of .mobile-only, not the same element. Selectors use descendant combinators
+// accordingly (v4 had both classes on one element).
 @media #{$mobile} {
-  .mobile-only.toc {
+  .mobile-only .toc {
     display: flex !important;
     flex-direction: column !important;
     border-bottom: 1px dotted var(--lightgray) !important;
   }
 
-  .mobile-only.backlinks {
+  .mobile-only .backlinks {
     border-top: 1px dotted var(--lightgray) !important;
     padding-top: 2rem !important;
     margin-top: 3rem !important;
     margin-bottom: 2rem !important;
   }
 
-  .mobile-only.backlinks ~ .giscus,
-  .mobile-only.backlinks ~ .waline {
+  // The mobile backlinks wrapper precedes the comment box in afterBody, so the
+  // comment top-divider hangs off the .mobile-only wrapper that contains
+  // backlinks.
+  .mobile-only:has(.backlinks) ~ .giscus,
+  .mobile-only:has(.backlinks) ~ .waline {
     border-top: 1px solid var(--lightgray) !important;
   }
 
@@ -390,3 +397,25 @@ footer *,
 .wl-power {
   display: none !important;
 }
+
+// Darkmode toggle icon: ported from the v4 fork's darkmode.scss. v5's darkmode
+// plugin only sets `fill` on the icon (no stroke, no hover), so restore the v4
+// 1px stroke outline and the hover effect (scale up + recolor to --secondary).
+// `body button.darkmode ... svg` raises specificity above the plugin's
+// `button.darkmode svg` so these win without `!important`.
+body button.darkmode svg {
+  stroke: var(--darkgray);
+  stroke-width: 1px;
+  transition: all 0.2s ease;
+}
+
+body button.darkmode:hover svg {
+  transform: scale(1.1);
+  stroke: var(--secondary);
+  fill: var(--secondary);
+}
+
+// Hide Waline "powered by" footer — v4 fork deliberately removed it.
+.wl-power { display: none !important; }
+// Comment section top divider, matching v4 fork.
+.comments-container, #waline { border-top: 1px solid var(--lightgray); padding-top: 1rem; margin-top: 2rem; }
